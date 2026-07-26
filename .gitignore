@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments and editors
+.venv/
+venv/
+env/
+.vscode/
+.idea/
+
+# Logs and experiment artifacts
+/wandb/
+/results/
+logs/
+*.log
+core
+core.*
+
+# Models and checkpoints
+/models/
+checkpoints/
+weights/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.key
+credentials.json
+secrets.json
+
+# Generated data and private review material
+/data/
+/iros/
+/HLR_dataset/dataset_output/
+/HLR_dataset/data/scene_graphs/*.html
+/pipeline/output/
+
+# Internal working notes
+/10.15记录.md
+/论文写作大纲.md
+/部署方案.md
+/docs/*论文修改方向*.docx
+/docs/*论文修改方向*.odt
+/docs/*.bak
+
+# LaTeX build artifacts
+docs/paper/build/
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+
+# OS files
+.DS_Store
+Thumbs.db

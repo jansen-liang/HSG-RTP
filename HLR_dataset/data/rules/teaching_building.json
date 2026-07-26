@@ -1,0 +1,344 @@
+{
+  "classroom": {
+    "functional_groups": [
+      {
+        "anchor": "lecture_desk",
+        "members": [
+          "podium",
+          "blackboard",
+          "screen",
+          "projector"
+        ],
+        "relation": "front_of_room_cluster"
+      },
+      {
+        "anchor": "student_chair",
+        "members": [
+          "desk"
+        ],
+        "relation": "grid_layout"
+      }
+    ],
+    "placement_rules": {
+      "blackboard_eraser": {
+        "on": [
+          "lecture_desk",
+          "podium"
+        ],
+        "next_to": [
+          "blackboard"
+        ]
+      },
+      "marker": {
+        "on": [
+          "lecture_desk",
+          "podium"
+        ]
+      },
+      "textbook": {
+        "on": [
+          "desk",
+          "lecture_desk"
+        ],
+        "in": [
+          "backpack"
+        ]
+      },
+      "backpack": {
+        "next_to": [
+          "student_chair"
+        ],
+        "under": [
+          "desk"
+        ]
+      },
+      "projector": {
+        "on": [
+          "desk",
+          "lecture_desk"
+        ]
+      }
+    },
+    "state_context": {
+      "blackboard": {
+        "implies_item_state": {
+          "is_visible_to_audience": true
+        }
+      },
+      "recycling_bin": {
+        "implies_item_state": {
+          "is_discarded": true
+        }
+      }
+    }
+  },
+  "library_study_area": {
+    "functional_groups": [
+      {
+        "anchor": "bookcase",
+        "members": [
+          "bookcase_shelf",
+          "bookcase_top",
+          "bookcase_baseboard",
+          "bookend"
+        ],
+        "relation": "stacked_assembly"
+      },
+      {
+        "anchor": "desk",
+        "members": [
+          "straight_chair",
+          "desktop_computer"
+        ],
+        "relation": "workstation_setup"
+      }
+    ],
+    "placement_rules": {
+      "hardback": {
+        "on": [
+          "bookcase_shelf",
+          "desk"
+        ],
+        "next_to": [
+          "bookend"
+        ]
+      },
+      "paperback_book": {
+        "on": [
+          "bookcase_shelf",
+          "desk"
+        ]
+      },
+      "laptop": {
+        "on": [
+          "desk"
+        ]
+      },
+      "desk_phone": {
+        "on": [
+          "reception_desk"
+        ]
+      },
+      "grandfather_clock": {
+        "against": [
+          "wall"
+        ]
+      }
+    },
+    "state_context": {
+      "bookcase_shelf": {
+        "implies_item_state": {
+          "is_stored": true,
+          "is_accessible": true
+        }
+      },
+      "reception_desk": {
+        "implies_item_state": {
+          "is_monitored": true
+        }
+      }
+    }
+  },
+  "faculty_office": {
+    "functional_groups": [
+      {
+        "anchor": "desk",
+        "members": [
+          "swivel_chair",
+          "desktop_computer",
+          "desk_bracket",
+          "desk_leg"
+        ],
+        "relation": "office_desk_assembly"
+      },
+      {
+        "anchor": "cabinet",
+        "members": [
+          "cabinet_door",
+          "cabinet_base"
+        ],
+        "relation": "storage_unit"
+      },
+      {
+        "anchor": "eames_chair",
+        "members": [
+          "bookcase"
+        ],
+        "relation": "reading_nook"
+      }
+    ],
+    "placement_rules": {
+      "personal_computer": {
+        "on": [
+          "desk"
+        ]
+      },
+      "wall_clock": {
+        "on": [
+          "wall"
+        ]
+      },
+      "alarm_clock": {
+        "on": [
+          "desk",
+          "bookcase_shelf"
+        ]
+      },
+      "rubber_eraser": {
+        "on": [
+          "desk"
+        ],
+        "in": [
+          "desk_drawer"
+        ]
+      },
+      "catalog": {
+        "in": [
+          "cabinet"
+        ],
+        "on": [
+          "desk"
+        ]
+      }
+    },
+    "state_context": {
+      "cabinet": {
+        "implies_item_state": {
+          "is_secured": true,
+          "is_hidden": true
+        }
+      },
+      "public_trash_can": {
+        "implies_item_state": {
+          "is_trash": true
+        }
+      }
+    }
+  },
+  "computer_lab": {
+    "functional_groups": [
+      {
+        "anchor": "desk",
+        "members": [
+          "digital_computer",
+          "straight_chair",
+          "screen"
+        ],
+        "relation": "row_repetition"
+      },
+      {
+        "anchor": "projector",
+        "members": [
+          "screen"
+        ],
+        "relation": "projection_alignment"
+      }
+    ],
+    "placement_rules": {
+      "notebook": {
+        "on": [
+          "desk"
+        ],
+        "next_to": [
+          "digital_computer"
+        ]
+      },
+      "tablet": {
+        "on": [
+          "desk"
+        ]
+      },
+      "computer_game": {
+        "on": [
+          "desk"
+        ]
+      },
+      "label": {
+        "on": [
+          "digital_computer",
+          "screen"
+        ]
+      },
+      "backpack": {
+        "under": [
+          "desk"
+        ],
+        "on": [
+          "chair"
+        ]
+      }
+    },
+    "state_context": {
+      "screen": {
+        "implies_item_state": {
+          "is_powered": true,
+          "is_displaying_content": true
+        }
+      },
+      "desk": {
+        "implies_item_state": {
+          "is_occupied": false
+        }
+      }
+    }
+  },
+  "student_lounge": {
+    "functional_groups": [
+      {
+        "anchor": "armchair",
+        "members": [
+          "chaise_longue",
+          "rocking_chair"
+        ],
+        "relation": "conversation_circle"
+      },
+      {
+        "anchor": "game_console",
+        "members": [
+          "screen",
+          "armchair"
+        ],
+        "relation": "entertainment_center"
+      }
+    ],
+    "placement_rules": {
+      "comic_book": {
+        "on": [
+          "armchair",
+          "chaise_longue"
+        ]
+      },
+      "bottle__of__sunscreen": {
+        "in": [
+          "backpack"
+        ],
+        "on": [
+          "table"
+        ]
+      },
+      "laptop": {
+        "on": [
+          "lap",
+          "armchair"
+        ]
+      },
+      "public_trash_can": {
+        "next_to": [
+          "wall"
+        ]
+      }
+    },
+    "state_context": {
+      "recycling_bin": {
+        "implies_item_state": {
+          "is_ready_for_pickup": true
+        }
+      },
+      "chaise_longue": {
+        "implies_item_state": {
+          "is_relaxed": true
+        }
+      }
+    }
+  }
+}

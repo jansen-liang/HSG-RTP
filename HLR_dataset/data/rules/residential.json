@@ -1,0 +1,412 @@
+{
+  "Kitchen": {
+    "functional_groups": [
+      {
+        "anchor": "table",
+        "members": [
+          "straight_chair",
+          "tablefork",
+          "table_knife",
+          "napkin"
+        ],
+        "relation": "surrounds"
+      },
+      {
+        "anchor": "countertop",
+        "members": [
+          "coffee_maker",
+          "toaster",
+          "microwave",
+          "food_processor",
+          "jar__of__vegetable"
+        ],
+        "relation": "on_and_next"
+      },
+      {
+        "anchor": "stove",
+        "members": [
+          "cooking_utensil",
+          "cooking_oil"
+        ],
+        "relation": "next_to"
+      }
+    ],
+    "placement_rules": {
+      "diced__carrot": {
+        "on": [
+          "countertop",
+          "table"
+        ],
+        "in": [
+          "pot_plant"
+        ]
+      },
+      "tableware": {
+        "on": [
+          "table",
+          "countertop"
+        ],
+        "in": [
+          "white_goods"
+        ]
+      },
+      "kitchen_utensil": {
+        "on": [
+          "countertop"
+        ],
+        "in": [
+          "drawer",
+          "white_goods"
+        ]
+      },
+      "vegetable": {
+        "on": [
+          "countertop",
+          "table"
+        ],
+        "in": [
+          "white_goods"
+        ]
+      }
+    },
+    "state_context": {
+      "oven": {
+        "implies_item_state": {
+          "temperature": "hot",
+          "is_cooked": true
+        }
+      },
+      "deep_fryer": {
+        "implies_item_state": {
+          "is_greasy": true,
+          "is_cooked": true
+        }
+      },
+      "white_goods": {
+        "implies_item_state": {
+          "temperature": "cold"
+        }
+      }
+    }
+  },
+  "Bedroom": {
+    "functional_groups": [
+      {
+        "anchor": "bed",
+        "members": [
+          "bed_linen",
+          "bedclothes",
+          "blanket",
+          "quilt"
+        ],
+        "relation": "on"
+      },
+      {
+        "anchor": "bed",
+        "members": [
+          "nightstand",
+          "table_lamp"
+        ],
+        "relation": "next_to"
+      },
+      {
+        "anchor": "desk",
+        "members": [
+          "portable_computer",
+          "lamp",
+          "swivel_chair"
+        ],
+        "relation": "on_and_next"
+      }
+    ],
+    "placement_rules": {
+      "tablet": {
+        "on": [
+          "bed",
+          "desk",
+          "nightstand"
+        ]
+      },
+      "clothing": {
+        "on": [
+          "bed"
+        ],
+        "in": [
+          "bedroom_furniture"
+        ]
+      },
+      "wind_chime": {
+        "on": [
+          "hook"
+        ],
+        "next_to": [
+          "window"
+        ]
+      },
+      "reed_diffuser": {
+        "on": [
+          "desk",
+          "nightstand"
+        ]
+      }
+    },
+    "state_context": {
+      "bed": {
+        "implies_item_state": {
+          "is_occupied": false
+        }
+      },
+      "bedroom_furniture": {
+        "implies_item_state": {
+          "is_stored": true
+        }
+      }
+    }
+  },
+  "Living_Room": {
+    "functional_groups": [
+      {
+        "anchor": "sofa",
+        "members": [
+          "coffee_table",
+          "armchair",
+          "living_room_sofa"
+        ],
+        "relation": "surrounds"
+      },
+      {
+        "anchor": "coffee_table",
+        "members": [
+          "flower_arrangement",
+          "candle",
+          "centerpiece"
+        ],
+        "relation": "on"
+      },
+      {
+        "anchor": "floor_lamp",
+        "members": [
+          "eames_chair",
+          "magazine_rack"
+        ],
+        "relation": "next_to"
+      }
+    ],
+    "placement_rules": {
+      "decoration": {
+        "on": [
+          "coffee_table",
+          "console_table",
+          "mantle"
+        ]
+      },
+      "plant_pot_stand": {
+        "on": [
+          "floor"
+        ],
+        "next_to": [
+          "window"
+        ]
+      },
+      "toy_dice": {
+        "on": [
+          "coffee_table"
+        ],
+        "under": [
+          "sofa"
+        ]
+      }
+    },
+    "state_context": {
+      "fireplace": {
+        "implies_item_state": {
+          "is_warm": true,
+          "is_lit": true
+        }
+      },
+      "console_table": {
+        "implies_item_state": {
+          "is_displayed": true
+        }
+      }
+    }
+  },
+  "Nursery": {
+    "functional_groups": [
+      {
+        "anchor": "crib",
+        "members": [
+          "baby_bed",
+          "blanket"
+        ],
+        "relation": "on"
+      },
+      {
+        "anchor": "rocking_chair",
+        "members": [
+          "floor_lamp",
+          "small_table"
+        ],
+        "relation": "next_to"
+      },
+      {
+        "anchor": "toy_box",
+        "members": [
+          "toy_car",
+          "toy_figure",
+          "beach_toy"
+        ],
+        "relation": "in"
+      }
+    ],
+    "placement_rules": {
+      "toy_car": {
+        "on": [
+          "floor",
+          "rug"
+        ],
+        "in": [
+          "toy_box"
+        ]
+      },
+      "highchair": {
+        "next_to": [
+          "table"
+        ]
+      },
+      "flashlight": {
+        "on": [
+          "shelf",
+          "table"
+        ],
+        "in": [
+          "toy_box"
+        ]
+      }
+    },
+    "state_context": {
+      "toy_box": {
+        "implies_item_state": {
+          "is_stowed": true,
+          "is_messy": false
+        }
+      },
+      "highchair": {
+        "implies_item_state": {
+          "is_secure": true
+        }
+      }
+    }
+  },
+  "Dining_Room": {
+    "functional_groups": [
+      {
+        "anchor": "dining_table",
+        "members": [
+          "straight_chair",
+          "tablecloth",
+          "centerpiece"
+        ],
+        "relation": "surrounds"
+      },
+      {
+        "anchor": "pedestal_table",
+        "members": [
+          "flower_arrangement",
+          "pottable__dahlia"
+        ],
+        "relation": "on"
+      }
+    ],
+    "placement_rules": {
+      "crockery": {
+        "on": [
+          "dining_table",
+          "buffet"
+        ],
+        "in": [
+          "cabinet"
+        ]
+      },
+      "candle": {
+        "on": [
+          "dining_table",
+          "pedestal_table"
+        ]
+      },
+      "napkin": {
+        "on": [
+          "dining_table"
+        ],
+        "next_to": [
+          "flatware"
+        ]
+      }
+    },
+    "state_context": {
+      "dining_table": {
+        "implies_item_state": {
+          "is_set_for_meal": true
+        }
+      }
+    }
+  },
+  "Bathroom": {
+    "functional_groups": [
+      {
+        "anchor": "counter",
+        "members": [
+          "toilet_paper_dispenser",
+          "paper_towel_dispenser"
+        ],
+        "relation": "next_to"
+      },
+      {
+        "anchor": "white_goods",
+        "members": [
+          "dryer",
+          "iron"
+        ],
+        "relation": "next_to"
+      }
+    ],
+    "placement_rules": {
+      "towel": {
+        "on": [
+          "rack",
+          "counter"
+        ],
+        "in": [
+          "hamper"
+        ]
+      },
+      "coconut_oil": {
+        "on": [
+          "counter",
+          "shelf"
+        ]
+      },
+      "dental_appliance": {
+        "on": [
+          "counter"
+        ],
+        "in": [
+          "cabinet"
+        ]
+      }
+    },
+    "state_context": {
+      "hamper": {
+        "implies_item_state": {
+          "is_dirty": true
+        }
+      },
+      "dryer": {
+        "implies_item_state": {
+          "is_dry": true,
+          "is_warm": true
+        }
+      }
+    }
+  }
+}

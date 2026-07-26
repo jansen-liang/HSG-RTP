@@ -1,0 +1,17 @@
+scene_type: school
+floors_config:
+  min_floors: 2
+  max_floors: 4
+
+zones:
+  teaching_block:
+    room_types: ["classroom", "classroom", "classroom", "bathroom"]
+  
+  admin_block:
+    room_types: ["office", "meeting_room", "printing_room"]
+
+layout_strategy:
+  ground_floor: ["admin_block", "teaching_block"]
+  upper_floors: ["teaching_block"]
+
+room_mapping: {}

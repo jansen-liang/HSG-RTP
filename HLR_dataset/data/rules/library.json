@@ -1,0 +1,301 @@
+{
+  "reading_room": {
+    "functional_groups": [
+      {
+        "anchor": "reading_table",
+        "members": [
+          "straight_chair",
+          "table_lamp"
+        ],
+        "relation": "surrounds"
+      },
+      {
+        "anchor": "armchair",
+        "members": [
+          "floor_lamp",
+          "coffee_table"
+        ],
+        "relation": "next_to"
+      }
+    ],
+    "placement_rules": {
+      "paperback_book": {
+        "on": [
+          "reading_table",
+          "coffee_table"
+        ]
+      },
+      "newspaper": {
+        "on": [
+          "reading_table",
+          "coffee_table"
+        ]
+      },
+      "laptop": {
+        "on": [
+          "reading_table"
+        ]
+      },
+      "rug": {
+        "under": [
+          "reading_table",
+          "armchair"
+        ]
+      }
+    },
+    "state_context": {
+      "reading_table": {
+        "implies_item_state": {
+          "is_occupied": true
+        }
+      }
+    }
+  },
+  "stacks_area": {
+    "functional_groups": [
+      {
+        "anchor": "bookcase",
+        "members": [
+          "bookcase_side",
+          "bookcase_back",
+          "bookcase_top",
+          "bookcase_baseboard",
+          "bookcase_shelf"
+        ],
+        "relation": "part_of"
+      },
+      {
+        "anchor": "book_cart",
+        "members": [
+          "textbook",
+          "hardback",
+          "paperback_book"
+        ],
+        "relation": "contains"
+      }
+    ],
+    "placement_rules": {
+      "hardback": {
+        "on": [
+          "bookcase_shelf",
+          "book_cart"
+        ]
+      },
+      "paperback_book": {
+        "on": [
+          "bookcase_shelf",
+          "book_cart"
+        ]
+      },
+      "comic_book": {
+        "on": [
+          "bookcase_shelf"
+        ]
+      },
+      "bookend": {
+        "on": [
+          "bookcase_shelf"
+        ]
+      },
+      "ladder": {
+        "against": [
+          "bookcase"
+        ]
+      }
+    },
+    "state_context": {
+      "book_cart": {
+        "implies_item_state": {
+          "to_be_reshelved": true
+        }
+      },
+      "bookcase_shelf": {
+        "implies_item_state": {
+          "is_shelved": true
+        }
+      }
+    }
+  },
+  "computer_lab": {
+    "functional_groups": [
+      {
+        "anchor": "desk",
+        "members": [
+          "desktop_computer",
+          "swivel_chair"
+        ],
+        "relation": "on_and_next"
+      },
+      {
+        "anchor": "printer",
+        "members": [
+          "stand"
+        ],
+        "relation": "on"
+      }
+    ],
+    "placement_rules": {
+      "personal_computer": {
+        "on": [
+          "desk"
+        ]
+      },
+      "tablet": {
+        "on": [
+          "desk"
+        ]
+      },
+      "game_console": {
+        "on": [
+          "desk"
+        ]
+      },
+      "paperback_book": {
+        "next_to": [
+          "desktop_computer"
+        ]
+      }
+    },
+    "state_context": {
+      "desktop_computer": {
+        "implies_item_state": {
+          "is_powered": true
+        }
+      }
+    }
+  },
+  "circulation_desk": {
+    "functional_groups": [
+      {
+        "anchor": "librarian_counter",
+        "members": [
+          "scanner",
+          "personal_computer",
+          "highchair"
+        ],
+        "relation": "on_and_next"
+      },
+      {
+        "anchor": "self_checkout_machine",
+        "members": [
+          "stand"
+        ],
+        "relation": "on"
+      }
+    ],
+    "placement_rules": {
+      "scanner": {
+        "on": [
+          "librarian_counter"
+        ]
+      },
+      "book": {
+        "on": [
+          "librarian_counter"
+        ]
+      },
+      "candy_dispenser_shelf": {
+        "on": [
+          "librarian_counter"
+        ]
+      },
+      "catalog": {
+        "on": [
+          "librarian_counter"
+        ]
+      }
+    },
+    "state_context": {
+      "librarian_counter": {
+        "implies_item_state": {
+          "awaiting_checkout": true
+        }
+      }
+    }
+  },
+  "cafe_area": {
+    "functional_groups": [
+      {
+        "anchor": "table",
+        "members": [
+          "chair",
+          "napkin"
+        ],
+        "relation": "surrounds"
+      },
+      {
+        "anchor": "booth",
+        "members": [
+          "pedestal_table"
+        ],
+        "relation": "next_to"
+      }
+    ],
+    "placement_rules": {
+      "coffee_cup": {
+        "on": [
+          "table",
+          "pedestal_table"
+        ]
+      },
+      "box__of__vegetable_juice": {
+        "on": [
+          "grocery_shelf"
+        ]
+      },
+      "crockery": {
+        "on": [
+          "table"
+        ]
+      },
+      "dry_food_dispenser_shelf": {
+        "against": [
+          "wall"
+        ]
+      }
+    },
+    "state_context": {
+      "grocery_shelf": {
+        "implies_item_state": {
+          "for_sale": true
+        }
+      }
+    }
+  },
+  "study_room": {
+    "functional_groups": [
+      {
+        "anchor": "conference_table",
+        "members": [
+          "swivel_chair",
+          "whiteboard"
+        ],
+        "relation": "surrounds"
+      }
+    ],
+    "placement_rules": {
+      "laptop": {
+        "on": [
+          "conference_table"
+        ]
+      },
+      "notebook": {
+        "on": [
+          "conference_table"
+        ]
+      },
+      "textbook": {
+        "on": [
+          "conference_table"
+        ]
+      }
+    },
+    "state_context": {
+      "conference_table": {
+        "implies_item_state": {
+          "is_work_surface": true
+        }
+      }
+    }
+  }
+}

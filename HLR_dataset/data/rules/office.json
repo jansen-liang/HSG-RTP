@@ -1,0 +1,365 @@
+{
+  "open_plan_workspace": {
+    "functional_groups": [
+      {
+        "anchor": "desk",
+        "members": [
+          "office_chair",
+          "desktop_computer",
+          "keyboard",
+          "mouse",
+          "mousepad",
+          "desk_phone"
+        ],
+        "relation": "on_and_next"
+      },
+      {
+        "anchor": "grocery_shelf",
+        "members": [
+          "folder",
+          "bookend",
+          "textbook",
+          "catalog"
+        ],
+        "relation": "on"
+      }
+    ],
+    "placement_rules": {
+      "stationery": {
+        "on": [
+          "desk",
+          "desk_top",
+          "shelf"
+        ],
+        "in": [
+          "cabinet",
+          "pencil_holder"
+        ]
+      },
+      "trash_receptacle": {
+        "under": [
+          "desk",
+          "worktable"
+        ],
+        "next_to": [
+          "desk"
+        ]
+      },
+      "electronics": {
+        "on": [
+          "desk",
+          "worktable"
+        ],
+        "next_to": [
+          "monitor"
+        ]
+      }
+    },
+    "state_context": {
+      "cabinet": {
+        "implies_item_state": {
+          "is_accessible": false,
+          "is_stored": true
+        }
+      },
+      "public_trash_can": {
+        "implies_item_state": {
+          "is_discarded": true,
+          "cleanliness": 0.0
+        }
+      }
+    }
+  },
+  "executive_office": {
+    "functional_groups": [
+      {
+        "anchor": "reception_desk",
+        "members": [
+          "swivel_chair",
+          "laptop",
+          "telephone",
+          "table_lamp"
+        ],
+        "relation": "on_and_next"
+      },
+      {
+        "anchor": "bookcase",
+        "members": [
+          "hardback",
+          "notebook",
+          "bookend",
+          "pot_plant"
+        ],
+        "relation": "on"
+      },
+      {
+        "anchor": "coffee_table",
+        "members": [
+          "armchair",
+          "newspaper",
+          "plant_pot_stand"
+        ],
+        "relation": "surrounds"
+      }
+    ],
+    "placement_rules": {
+      "decorative_small": {
+        "on": [
+          "bookcase_top",
+          "coffee_table",
+          "desk_top"
+        ],
+        "next_to": [
+          "computer"
+        ]
+      },
+      "documents": {
+        "on": [
+          "desk",
+          "coffee_table"
+        ],
+        "in": [
+          "folder",
+          "cabinet"
+        ]
+      }
+    },
+    "state_context": {
+      "desk": {
+        "implies_item_state": {
+          "is_private": true
+        }
+      }
+    }
+  },
+  "conference_room": {
+    "functional_groups": [
+      {
+        "anchor": "conference_table",
+        "members": [
+          "chair",
+          "swivel_chair",
+          "folding_chair"
+        ],
+        "relation": "surrounds"
+      },
+      {
+        "anchor": "screen",
+        "members": [
+          "projector",
+          "stand"
+        ],
+        "relation": "next_to"
+      }
+    ],
+    "placement_rules": {
+      "meeting_supplies": {
+        "on": [
+          "conference_table"
+        ],
+        "next_to": [
+          "laptop"
+        ]
+      },
+      "presentation_equipment": {
+        "against": [
+          "wall"
+        ],
+        "on": [
+          "stand",
+          "table"
+        ]
+      }
+    },
+    "state_context": {
+      "conference_table": {
+        "implies_item_state": {
+          "is_shared": true,
+          "in_focus": true
+        }
+      }
+    }
+  },
+  "break_room": {
+    "functional_groups": [
+      {
+        "anchor": "countertop",
+        "members": [
+          "water_cooler",
+          "coffee_machine",
+          "soap_dispenser",
+          "paper_towel_dispenser",
+          "whipped_cream__atomizer"
+        ],
+        "relation": "on_and_next"
+      },
+      {
+        "anchor": "table",
+        "members": [
+          "straight_chair",
+          "crockery",
+          "flatware",
+          "napkin"
+        ],
+        "relation": "surrounds"
+      }
+    ],
+    "placement_rules": {
+      "food_item": {
+        "on": [
+          "countertop",
+          "table",
+          "crockery"
+        ],
+        "in": [
+          "refrigerator",
+          "jar__of__vegetable"
+        ]
+      },
+      "cleaning_supplies": {
+        "under": [
+          "countertop",
+          "sink"
+        ],
+        "in": [
+          "cabinet_base"
+        ]
+      },
+      "condiments": {
+        "on": [
+          "table",
+          "countertop",
+          "shelf"
+        ],
+        "next_to": [
+          "crockery"
+        ]
+      }
+    },
+    "state_context": {
+      "water__dispenser": {
+        "implies_item_state": {
+          "hydration": 1.0,
+          "temperature": "cold"
+        }
+      },
+      "public_trash_can": {
+        "implies_item_state": {
+          "is_waste": true
+        }
+      }
+    }
+  },
+  "utility_copy_room": {
+    "functional_groups": [
+      {
+        "anchor": "photocopier",
+        "members": [
+          "printer",
+          "scanner",
+          "paper_towel_holder"
+        ],
+        "relation": "next_to"
+      },
+      {
+        "anchor": "shelf",
+        "members": [
+          "wrapping_paper",
+          "cellulose_tape_dispenser",
+          "staple",
+          "paper_clip"
+        ],
+        "relation": "on"
+      }
+    ],
+    "placement_rules": {
+      "bulk_supplies": {
+        "on": [
+          "shelf",
+          "cabinet_base"
+        ],
+        "in": [
+          "cabinet"
+        ]
+      },
+      "maintenance_tools": {
+        "in": [
+          "cabinet",
+          "tool_box"
+        ],
+        "on": [
+          "worktable"
+        ]
+      }
+    },
+    "state_context": {
+      "recycling_bin": {
+        "implies_item_state": {
+          "is_recyclable": true,
+          "is_discarded": true
+        }
+      }
+    }
+  },
+  "reception_lobby": {
+    "functional_groups": [
+      {
+        "anchor": "reception_desk",
+        "members": [
+          "telephone",
+          "computer",
+          "pen",
+          "guest_book"
+        ],
+        "relation": "on"
+      },
+      {
+        "anchor": "elevator_door",
+        "members": [
+          "elevator_button",
+          "pottable__dahlia",
+          "floor_mat"
+        ],
+        "relation": "next_to"
+      },
+      {
+        "anchor": "coffee_table",
+        "members": [
+          "armchair",
+          "magazine",
+          "newspaper",
+          "pottable__marigold"
+        ],
+        "relation": "surrounds"
+      }
+    ],
+    "placement_rules": {
+      "decor": {
+        "on": [
+          "coffee_table",
+          "reception_desk",
+          "pedestal_table"
+        ],
+        "next_to": [
+          "armchair"
+        ]
+      },
+      "reading_material": {
+        "on": [
+          "coffee_table",
+          "rack"
+        ],
+        "next_to": [
+          "armchair"
+        ]
+      }
+    },
+    "state_context": {
+      "floor": {
+        "implies_item_state": {
+          "is_grounded": true
+        }
+      }
+    }
+  }
+}

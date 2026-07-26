@@ -1,0 +1,277 @@
+{
+  "general_aisles": {
+    "functional_groups": [
+      {
+        "anchor": "bookcase_shelf",
+        "members": [
+          "shelf",
+          "sign"
+        ],
+        "relation": "attached_to"
+      },
+      {
+        "anchor": "shelf",
+        "members": [
+          "canned_food",
+          "box__of__rice",
+          "jar__of__spaghetti_sauce"
+        ],
+        "relation": "holds"
+      }
+    ],
+    "placement_rules": {
+      "can__of__corn": {
+        "on": [
+          "shelf",
+          "bookcase_shelf"
+        ],
+        "next_to": [
+          "can__of__sardines"
+        ]
+      },
+      "box__of__cereal": {
+        "on": [
+          "shelf",
+          "bookcase_shelf"
+        ],
+        "next_to": [
+          "box__of__granola_bars"
+        ]
+      },
+      "bottle__of__apple_cider": {
+        "on": [
+          "shelf"
+        ],
+        "next_to": [
+          "bottle__of__fruit_punch"
+        ]
+      },
+      "sign": {
+        "on": [
+          "shelf",
+          "bookcase_shelf"
+        ],
+        "against": [
+          "wall"
+        ]
+      }
+    },
+    "state_context": {
+      "shelf": {
+        "implies_item_state": {
+          "is_for_sale": true,
+          "is_accessible": true
+        }
+      }
+    }
+  },
+  "fresh_produce_market": {
+    "functional_groups": [
+      {
+        "anchor": "countertop",
+        "members": [
+          "hamper",
+          "gunnysack",
+          "signpost"
+        ],
+        "relation": "on_and_next"
+      },
+      {
+        "anchor": "hamper",
+        "members": [
+          "apple",
+          "banana",
+          "orange"
+        ],
+        "relation": "contains"
+      }
+    ],
+    "placement_rules": {
+      "banana": {
+        "in": [
+          "hamper",
+          "gunnysack"
+        ],
+        "on": [
+          "countertop"
+        ]
+      },
+      "diced__carrot": {
+        "in": [
+          "bag__of__starch",
+          "plastic_container"
+        ],
+        "on": [
+          "countertop"
+        ]
+      },
+      "pumpkin": {
+        "on": [
+          "floor",
+          "pallet"
+        ],
+        "next_to": [
+          "countertop"
+        ]
+      },
+      "bag__of__oranges": {
+        "in": [
+          "hamper"
+        ],
+        "on": [
+          "countertop"
+        ]
+      }
+    },
+    "state_context": {
+      "gunnysack": {
+        "implies_item_state": {
+          "is_bulk": true,
+          "is_unwashed": true
+        }
+      }
+    }
+  },
+  "checkout_lane": {
+    "functional_groups": [
+      {
+        "anchor": "countertop",
+        "members": [
+          "scanner",
+          "cashbox",
+          "bag__of__rubbish"
+        ],
+        "relation": "on_top"
+      },
+      {
+        "anchor": "cashbox",
+        "members": [
+          "money",
+          "credit_card"
+        ],
+        "relation": "contains"
+      }
+    ],
+    "placement_rules": {
+      "scanner": {
+        "on": [
+          "countertop"
+        ],
+        "next_to": [
+          "cashbox"
+        ]
+      },
+      "box__of__candy": {
+        "on": [
+          "countertop"
+        ],
+        "next_to": [
+          "scanner"
+        ]
+      },
+      "lollipop": {
+        "in": [
+          "jar__of__candy"
+        ],
+        "on": [
+          "countertop"
+        ]
+      },
+      "bag__of__rubbish": {
+        "under": [
+          "countertop"
+        ],
+        "next_to": [
+          "ashcan"
+        ]
+      }
+    },
+    "state_context": {
+      "scanner": {
+        "implies_item_state": {
+          "is_scanned": true,
+          "price_calculated": true
+        }
+      },
+      "bag__of__rubbish": {
+        "implies_item_state": {
+          "is_bagged": true,
+          "is_purchased": true
+        }
+      }
+    }
+  },
+  "back_stockroom": {
+    "functional_groups": [
+      {
+        "anchor": "freight_elevator_door",
+        "members": [
+          "pallet",
+          "visual_signal"
+        ],
+        "relation": "in_front_of"
+      },
+      {
+        "anchor": "pallet",
+        "members": [
+          "box",
+          "flour__sack",
+          "bag__of__fertilizer"
+        ],
+        "relation": "supports"
+      }
+    ],
+    "placement_rules": {
+      "flour__sack": {
+        "on": [
+          "pallet",
+          "floor"
+        ],
+        "next_to": [
+          "bag__of__rice"
+        ]
+      },
+      "box__of__fruit": {
+        "on": [
+          "pallet",
+          "shelf"
+        ],
+        "next_to": [
+          "box__of__vegetable_juice"
+        ]
+      },
+      "strongbox": {
+        "under": [
+          "shelf",
+          "table"
+        ],
+        "against": [
+          "wall"
+        ]
+      },
+      "broom": {
+        "against": [
+          "wall",
+          "cabinet_door"
+        ],
+        "next_to": [
+          "ashcan"
+        ]
+      }
+    },
+    "state_context": {
+      "pallet": {
+        "implies_item_state": {
+          "is_inventory": true,
+          "is_unopened": true
+        }
+      },
+      "strongbox": {
+        "implies_item_state": {
+          "is_secure": true,
+          "is_restricted": true
+        }
+      }
+    }
+  }
+}

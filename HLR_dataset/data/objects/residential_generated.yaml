@@ -1,0 +1,4967 @@
+adornment:
+- synset: adornment.n.01
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+agave:
+- synset: agave.n.01
+  type: desert_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+alliaceous_plant:
+- synset: alliaceous_plant.n.01
+  type: liliaceous_plant.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+appliance:
+- synset: appliance.n.02
+  type: durables.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+armchair:
+- synset: armchair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+artichoke:
+- synset: artichoke.n.02
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+asparagus:
+- synset: asparagus.n.02
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+baby_bed:
+- synset: baby_bed.n.01
+  type: furniture.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+beach_toy:
+- synset: beach_toy.n.01
+  type: plaything.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bed:
+- synset: bed.n.01
+  type: bedroom_furniture.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bed_linen:
+- synset: bed_linen.n.01
+  type: linen.n.03
+  logic_source: behavior-1k
+  affordances:
+  - cloth
+  - deformable
+  - disinfectable
+  - drapeable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bedclothes:
+- synset: bedclothes.n.01
+  type: cloth_covering.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cloth
+  - deformable
+  - disinfectable
+  - drapeable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bedroom_furniture:
+- synset: bedroom_furniture.n.01
+  type: furniture.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+beet:
+- synset: beet.n.02
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+blanket:
+- synset: blanket.n.01
+  type: bedclothes.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cloth
+  - deformable
+  - disinfectable
+  - drapeable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+booth:
+- synset: booth.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+- synset: booth.n.02
+  type: closet.n.04
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bow:
+- synset: bow.n.08
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+box__of__vegetable_juice:
+- synset: box__of__vegetable_juice.n.01
+  type: grocery.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+breakfast_table:
+- synset: breakfast_table.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+broccoli:
+- synset: broccoli.n.02
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+broccoli_rabe:
+- synset: broccoli_rabe.n.02
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+broccolini:
+- synset: broccolini.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+broken__light_bulb:
+- synset: broken__light_bulb.n.01
+  type: electric_lamp.n.01
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+brussels_sprouts:
+- synset: brussels_sprouts.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+bulbous_plant:
+- synset: bulbous_plant.n.01
+  type: vascular_plant.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+cabbage:
+- synset: cabbage.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+candle:
+- synset: candle.n.01
+  type: lamp.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+carrot:
+- synset: carrot.n.03
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+cauliflower:
+- synset: cauliflower.n.02
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+celery:
+- synset: celery.n.02
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+centerpiece:
+- synset: centerpiece.n.02
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+chair:
+- synset: chair.n.01
+  type: seat.n.03
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+chaise_longue:
+- synset: chaise_longue.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+chives:
+- synset: chives.n.01
+  type: alliaceous_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+chopstick:
+- synset: chopstick.n.01
+  type: tableware.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+christmas_tree:
+- synset: christmas_tree.n.05
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+clamp:
+- synset: clamp.n.01
+  type: holding_device.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+coal:
+- synset: coal.n.01
+  type: vegetable_matter.n.01
+  logic_source: behavior-1k
+  affordances:
+  - flammable
+  - microPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+coconut_oil:
+- synset: coconut_oil.n.01
+  type: vegetable_oil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - boilable
+  - cookable
+  - liquid
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+coffee_maker:
+- synset: coffee_maker.n.01
+  type: kitchen_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatSource
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+    isRunnning: false
+coffee_table:
+- synset: coffee_table.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+conference_table:
+- synset: conference_table.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+console_table:
+- synset: console_table.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+cooked__coconut_oil:
+- synset: cooked__coconut_oil.n.01
+  type: vegetable_oil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - boilable
+  - liquid
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__cooking_oil:
+- synset: cooked__cooking_oil.n.01
+  type: vegetable_oil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - boilable
+  - flammable
+  - liquid
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__artichoke:
+- synset: cooked__diced__artichoke.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__asparagus:
+- synset: cooked__diced__asparagus.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__beet:
+- synset: cooked__diced__beet.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - flammable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__broccoli:
+- synset: cooked__diced__broccoli.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - flammable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__broccoli_rabe:
+- synset: cooked__diced__broccoli_rabe.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__broccolini:
+- synset: cooked__diced__broccolini.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__brussels_sprouts:
+- synset: cooked__diced__brussels_sprouts.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__carrot:
+- synset: cooked__diced__carrot.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__cauliflower:
+- synset: cooked__diced__cauliflower.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__celery:
+- synset: cooked__diced__celery.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__chives:
+- synset: cooked__diced__chives.n.01
+  type: alliaceous_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__cucumber:
+- synset: cooked__diced__cucumber.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__eggplant:
+- synset: cooked__diced__eggplant.n.01
+  type: solanaceous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__fennel:
+- synset: cooked__diced__fennel.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__leek:
+- synset: cooked__diced__leek.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__mushroom:
+- synset: cooked__diced__mushroom.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - flammable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__mustard:
+- synset: cooked__diced__mustard.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__parsnip:
+- synset: cooked__diced__parsnip.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__pieplant:
+- synset: cooked__diced__pieplant.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__pumpkin:
+- synset: cooked__diced__pumpkin.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__diced__radish:
+- synset: cooked__diced__radish.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__olive_oil:
+- synset: cooked__olive_oil.n.01
+  type: vegetable_oil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - boilable
+  - flammable
+  - liquid
+  - physicalSubstance
+  - substance
+  default_states: {}
+cooked__sesame_oil:
+- synset: cooked__sesame_oil.n.01
+  type: vegetable_oil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - boilable
+  - liquid
+  - physicalSubstance
+  - substance
+  default_states: {}
+cookie_cutter:
+- synset: cookie_cutter.n.01
+  type: kitchen_utensil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+cooking_oil:
+- synset: cooking_oil.n.01
+  type: vegetable_oil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - boilable
+  - cookable
+  - liquid
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+cooking_utensil:
+- synset: cooking_utensil.n.01
+  type: kitchen_utensil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+cotton:
+- synset: cotton.n.01
+  type: plant_fiber.n.01
+  logic_source: behavior-1k
+  affordances:
+  - deformable
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rustable
+  - scratchable
+  - softBody
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+- synset: cotton.n.04
+  type: thread.n.01
+  logic_source: behavior-1k
+  affordances:
+  - deformable
+  - disinfectable
+  - drapeable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rope
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+counter:
+- synset: counter.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+countertop:
+- synset: countertop.n.01
+  type: tabletop.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+crib:
+- synset: crib.n.01
+  type: baby_bed.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+crockery:
+- synset: crockery.n.01
+  type: tableware.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+cruciferous_vegetable:
+- synset: cruciferous_vegetable.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+cucumber:
+- synset: cucumber.n.02
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+cutlery:
+- synset: cutlery.n.02
+  type: tableware.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - mixingTool
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+decoration:
+- synset: decoration.n.01
+  type: artifact.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+deep_fryer:
+- synset: deep_fryer.n.01
+  type: kitchen_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+dehumidifier:
+- synset: dehumidifier.n.01
+  type: appliance.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+dental_appliance:
+- synset: dental_appliance.n.01
+  type: device.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+denture:
+- synset: denture.n.01
+  type: dental_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+desert_plant:
+- synset: desert_plant.n.01
+  type: vascular_plant.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+design:
+- synset: design.n.04
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+desk:
+- synset: desk.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - assembleable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+diced__agave:
+- synset: diced__agave.n.01
+  type: desert_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+diced__artichoke:
+- synset: diced__artichoke.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__asparagus:
+- synset: diced__asparagus.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__beet:
+- synset: diced__beet.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - flammable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__broccoli:
+- synset: diced__broccoli.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - flammable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__broccoli_rabe:
+- synset: diced__broccoli_rabe.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__broccolini:
+- synset: diced__broccolini.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__brussels_sprouts:
+- synset: diced__brussels_sprouts.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__carrot:
+- synset: diced__carrot.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__cauliflower:
+- synset: diced__cauliflower.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__celery:
+- synset: diced__celery.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__chives:
+- synset: diced__chives.n.01
+  type: alliaceous_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__cucumber:
+- synset: diced__cucumber.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__eggplant:
+- synset: diced__eggplant.n.01
+  type: solanaceous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__fennel:
+- synset: diced__fennel.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__leek:
+- synset: diced__leek.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__mushroom:
+- synset: diced__mushroom.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - flammable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__mustard:
+- synset: diced__mustard.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__parsnip:
+- synset: diced__parsnip.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__pieplant:
+- synset: diced__pieplant.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__pumpkin:
+- synset: diced__pumpkin.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__radish:
+- synset: diced__radish.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+diced__tulip:
+- synset: diced__tulip.n.01
+  type: liliaceous_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - macroPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+dryer:
+- synset: dryer.n.01
+  type: appliance.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+eames_chair:
+- synset: eames_chair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+eggplant:
+- synset: eggplant.n.01
+  type: solanaceous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+electric_lamp:
+- synset: electric_lamp.n.01
+  type: lamp.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+espresso_machine:
+- synset: espresso_machine.n.01
+  type: kitchen_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - heatSource
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+    isRunnning: false
+fennel:
+- synset: fennel.n.02
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+flashlight:
+- synset: flashlight.n.01
+  type: electric_lamp.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+flatware:
+- synset: flatware.n.01
+  type: tableware.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+floor_lamp:
+- synset: floor_lamp.n.01
+  type: lamp.n.02
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+flower_arrangement:
+- synset: flower_arrangement.n.01
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+folderal:
+- synset: folderal.n.01
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+folding_chair:
+- synset: folding_chair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+food_processor:
+- synset: food_processor.n.01
+  type: kitchen_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+french_press:
+- synset: french_press.n.01
+  type: kitchen_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+gaming_table:
+- synset: gaming_table.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+garden_plant:
+- synset: garden_plant.n.01
+  type: plant.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+garnish:
+- synset: garnish.n.01
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - boilable
+  - liquid
+  - physicalSubstance
+  - substance
+  default_states: {}
+gramineous_plant:
+- synset: gramineous_plant.n.01
+  type: herb.n.01
+  logic_source: behavior-1k
+  affordances:
+  - flammable
+  - microPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+grass:
+- synset: grass.n.01
+  type: gramineous_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - flammable
+  - microPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+grater:
+- synset: grater.n.01
+  type: kitchen_utensil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+greens:
+- synset: greens.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+gumbo:
+- synset: gumbo.n.03
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__agave:
+- synset: half__agave.n.01
+  type: desert_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - diceable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+half__artichoke:
+- synset: half__artichoke.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__asparagus:
+- synset: half__asparagus.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__beet:
+- synset: half__beet.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__broccoli:
+- synset: half__broccoli.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__broccoli_rabe:
+- synset: half__broccoli_rabe.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__broccolini:
+- synset: half__broccolini.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__brussels_sprouts:
+- synset: half__brussels_sprouts.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__carrot:
+- synset: half__carrot.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__cauliflower:
+- synset: half__cauliflower.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__celery:
+- synset: half__celery.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__chives:
+- synset: half__chives.n.01
+  type: alliaceous_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__cucumber:
+- synset: half__cucumber.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__eggplant:
+- synset: half__eggplant.n.01
+  type: solanaceous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__fennel:
+- synset: half__fennel.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__leek:
+- synset: half__leek.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__mushroom:
+- synset: half__mushroom.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - flammable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__mustard:
+- synset: half__mustard.n.01
+  type: cruciferous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__parsnip:
+- synset: half__parsnip.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__pieplant:
+- synset: half__pieplant.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__pumpkin:
+- synset: half__pumpkin.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__radish:
+- synset: half__radish.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+half__tulip:
+- synset: half__tulip.n.01
+  type: liliaceous_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - diceable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+hanging:
+- synset: hanging.n.01
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+herb:
+- synset: herb.n.01
+  type: vascular_plant.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+- synset: herb.n.02
+  type: flavorer.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+highchair:
+- synset: highchair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+holly:
+- synset: holly.n.03
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+home_appliance:
+- synset: home_appliance.n.01
+  type: appliance.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+hospital_bed:
+- synset: hospital_bed.n.02
+  type: furniture.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+iron:
+- synset: iron.n.04
+  type: home_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - heatSource
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+    isRunnning: false
+jar__of__vegetable:
+- synset: jar__of__vegetable.n.01
+  type: grocery.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+kitchen_appliance:
+- synset: kitchen_appliance.n.01
+  type: home_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+kitchen_utensil:
+- synset: kitchen_utensil.n.01
+  type: utensil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+lamp:
+- synset: lamp.n.01
+  type: source_of_illumination.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+- synset: lamp.n.02
+  type: furniture.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+lampshade:
+- synset: lampshade.n.01
+  type: shade.n.03
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+lantern:
+- synset: lantern.n.01
+  type: lamp.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+laptop:
+- synset: laptop.n.01
+  type: portable_computer.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - openable
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOpen: false
+    isOn: false
+lawn_chair:
+- synset: lawn_chair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+leaf:
+- synset: leaf.n.01
+  type: plant_organ.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+leaf_blower:
+- synset: leaf_blower.n.01
+  type: home_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+leek:
+- synset: leek.n.02
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+legume:
+- synset: legume.n.03
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+light_bulb:
+- synset: light_bulb.n.01
+  type: electric_lamp.n.01
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+liliaceous_plant:
+- synset: liliaceous_plant.n.01
+  type: bulbous_plant.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+lily:
+- synset: lily.n.01
+  type: liliaceous_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+masher:
+- synset: masher.n.02
+  type: kitchen_utensil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - mixingTool
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+microwave:
+- synset: microwave.n.02
+  type: kitchen_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatSource
+  - heatable
+  - moldyable
+  - nonSubstance
+  - openable
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOpen: false
+    isOn: false
+    isRunnning: false
+mixer:
+- synset: mixer.n.04
+  type: kitchen_utensil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+molding:
+- synset: molding.n.02
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+mushroom:
+- synset: mushroom.n.05
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+napkin:
+- synset: napkin.n.01
+  type: table_linen.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cloth
+  - deformable
+  - disinfectable
+  - drapeable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+narcissus:
+- synset: narcissus.n.01
+  type: bulbous_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+olive_oil:
+- synset: olive_oil.n.01
+  type: vegetable_oil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - boilable
+  - cookable
+  - liquid
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+onion:
+- synset: onion.n.03
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+outline_tray:
+- synset: outline_tray.n.01
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+outline_vase:
+- synset: outline_vase.n.01
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+oven:
+- synset: oven.n.01
+  type: kitchen_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatSource
+  - heatable
+  - moldyable
+  - nonSubstance
+  - openable
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOpen: false
+    isOn: false
+    isRunnning: false
+paper_towel_dispenser:
+- synset: paper_towel_dispenser.n.01
+  type: home_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+parsnip:
+- synset: parsnip.n.03
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+pedestal_table:
+- synset: pedestal_table.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+periodic_table:
+- synset: periodic_table.n.01
+  type: table.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+pet_bed:
+- synset: pet_bed.n.01
+  type: bedroom_furniture.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+pieplant:
+- synset: pieplant.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+ping_pong_table:
+- synset: ping_pong_table.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+plant:
+- synset: plant.n.02
+  type: organism.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+plant_fiber:
+- synset: plant_fiber.n.01
+  type: plant_product.n.01
+  logic_source: behavior-1k
+  affordances:
+  - deformable
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rustable
+  - scratchable
+  - softBody
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+plant_material:
+- synset: plant_material.n.01
+  type: material.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+plant_organ:
+- synset: plant_organ.n.01
+  type: plant_part.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+plant_part:
+- synset: plant_part.n.01
+  type: natural_object.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+plant_pot_stand:
+- synset: plant_pot_stand.n.01
+  type: rack.n.05
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+plant_product:
+- synset: plant_product.n.01
+  type: plant_material.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+pool_table:
+- synset: pool_table.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+portable_computer:
+- synset: portable_computer.n.01
+  type: personal_computer.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+pot_plant:
+- synset: pot_plant.n.01
+  type: plant.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+pottable__beefsteak_tomato:
+- synset: pottable__beefsteak_tomato.n.01
+  type: tomato.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+pottable__cactus:
+- synset: pottable__cactus.n.01
+  type: succulent.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+pottable__chili:
+- synset: pottable__chili.n.01
+  type: hot_pepper.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+pottable__daffodil:
+- synset: pottable__daffodil.n.01
+  type: narcissus.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+pottable__dahlia:
+- synset: pottable__dahlia.n.01
+  type: flower.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+pottable__marigold:
+- synset: pottable__marigold.n.01
+  type: flower.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+power_washer:
+- synset: power_washer.n.01
+  type: home_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+pumpkin:
+- synset: pumpkin.n.02
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+quilt:
+- synset: quilt.n.01
+  type: bedclothes.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cloth
+  - deformable
+  - disinfectable
+  - drapeable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+radish:
+- synset: radish.n.01
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+    isCooked: false
+reed_diffuser:
+- synset: reed_diffuser.n.01
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+reproductive_structure:
+- synset: reproductive_structure.n.01
+  type: plant_organ.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+retainer:
+- synset: retainer.n.03
+  type: dental_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+rocking_chair:
+- synset: rocking_chair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+rolling_pin:
+- synset: rolling_pin.n.01
+  type: kitchen_utensil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - mixingTool
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+root_vegetable:
+- synset: root_vegetable.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+sesame_oil:
+- synset: sesame_oil.n.01
+  type: vegetable_oil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - boilable
+  - cookable
+  - liquid
+  - physicalSubstance
+  - substance
+  default_states:
+    isCooked: false
+shrub:
+- synset: shrub.n.01
+  type: woody_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+sliced__cucumber:
+- synset: sliced__cucumber.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+sliced__eggplant:
+- synset: sliced__eggplant.n.01
+  type: solanaceous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - diceable
+  - disinfectable
+  - dustyable
+  - flammable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+sliced__mushroom:
+- synset: sliced__mushroom.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cookable
+  - disinfectable
+  - dustyable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isCooked: false
+sofa:
+- synset: sofa.n.01
+  type: seat.n.03
+  logic_source: behavior-1k
+  affordances: &id005
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: &id006 {}
+solanaceous_vegetable:
+- synset: solanaceous_vegetable.n.01
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+spermatophyte:
+- synset: spermatophyte.n.01
+  type: vascular_plant.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+spirit_lamp:
+- synset: spirit_lamp.n.01
+  type: lamp.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+spotlight:
+- synset: spotlight.n.02
+  type: lamp.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+squash:
+- synset: squash.n.02
+  type: vegetable.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+squeezer:
+- synset: squeezer.n.01
+  type: kitchen_utensil.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - mixingTool
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+stalk:
+- synset: stalk.n.02
+  type: plant_organ.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+stand:
+- synset: stand.n.04
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+- synset: stand.n.10
+  type: tiered_seat.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+stove:
+- synset: stove.n.01
+  type: kitchen_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - heatSource
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+    isRunnning: false
+straight_chair:
+- synset: straight_chair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+succulent:
+- synset: succulent.n.01
+  type: vascular_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+sweet_potato:
+- synset: sweet_potato.n.02
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+swivel_chair:
+- synset: swivel_chair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+table:
+- synset: table.n.01
+  type: array.n.01
+  logic_source: behavior-1k
+  affordances: &id001
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: &id002 {}
+- synset: table.n.02
+  type: furniture.n.01
+  logic_source: behavior-1k
+  affordances: &id003
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: &id004 {}
+table_knife:
+- synset: table_knife.n.01
+  type: knife.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - mixingTool
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - slicer
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+table_lamp:
+- synset: table_lamp.n.01
+  type: lamp.n.02
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+table_linen:
+- synset: table_linen.n.01
+  type: linen.n.03
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+tablecloth:
+- synset: tablecloth.n.01
+  type: table_linen.n.01
+  logic_source: behavior-1k
+  affordances:
+  - cloth
+  - deformable
+  - disinfectable
+  - drapeable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+tablefork:
+- synset: tablefork.n.01
+  type: fork.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - mixingTool
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+tablespoon:
+- synset: tablespoon.n.02
+  type: spoon.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - mixingTool
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+tablet:
+- synset: tablet.n.05
+  type: portable_computer.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+tabletop:
+- synset: tabletop.n.01
+  type: work_surface.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+tableware:
+- synset: tableware.n.01
+  type: ware.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+toaster:
+- synset: toaster.n.02
+  type: kitchen_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - heatSource
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+    isRunnning: false
+toaster_oven:
+- synset: toaster_oven.n.01
+  type: kitchen_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatSource
+  - heatable
+  - moldyable
+  - nonSubstance
+  - openable
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOpen: false
+    isOn: false
+    isRunnning: false
+toilet_paper_dispenser:
+- synset: toilet_paper_dispenser.n.01
+  type: home_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+tomato:
+- synset: tomato.n.01
+  type: solanaceous_vegetable.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+- synset: tomato.n.02
+  type: herb.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+toy_box:
+- synset: toy_box.n.01
+  type: chest.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+toy_car:
+- synset: toy_car.n.01
+  type: plaything.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+toy_dice:
+- synset: toy_dice.n.01
+  type: plaything.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+toy_figure:
+- synset: toy_figure.n.01
+  type: plaything.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+tree:
+- synset: tree.n.01
+  type: woody_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+tulip:
+- synset: tulip.n.01
+  type: liliaceous_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - sliceable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isSliced: false
+turnip:
+- synset: turnip.n.02
+  type: root_vegetable.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+vacuum:
+- synset: vacuum.n.04
+  type: home_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+vascular_plant:
+- synset: vascular_plant.n.01
+  type: plant.n.02
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+vegetable:
+- synset: vegetable.n.01
+  type: produce.n.01
+  logic_source: behavior-1k
+  affordances: []
+  default_states: {}
+vegetable_matter:
+- synset: vegetable_matter.n.01
+  type: matter.n.03
+  logic_source: behavior-1k
+  affordances:
+  - flammable
+  - microPhysicalSubstance
+  - physicalSubstance
+  - substance
+  default_states: {}
+vegetable_oil:
+- synset: vegetable_oil.n.01
+  type: edible_fat.n.01
+  logic_source: behavior-1k
+  affordances:
+  - boilable
+  - liquid
+  - physicalSubstance
+  - substance
+  default_states: {}
+vine:
+- synset: vine.n.01
+  type: vascular_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+waffle_iron:
+- synset: waffle_iron.n.01
+  type: kitchen_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+weed:
+- synset: weed.n.01
+  type: vascular_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+white_goods:
+- synset: white_goods.n.01
+  type: home_appliance.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+- synset: white_goods.n.02
+  type: drygoods.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - particleRemover
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+wind_chime:
+- synset: wind_chime.n.01
+  type: decoration.n.01
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+wood:
+- synset: wood.n.01
+  type: plant_material.n.01
+  logic_source: behavior-1k
+  affordances:
+  - flammable
+  default_states: {}
+woody_plant:
+- synset: woody_plant.n.01
+  type: vascular_plant.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+worktable:
+- synset: worktable.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+dining_table:
+- synset: table.n.01
+  type: array.n.01
+  logic_source: mapped_from_behavior
+  affordances: *id001
+  default_states: *id002
+  original_source: table
+- synset: table.n.02
+  type: furniture.n.01
+  logic_source: mapped_from_behavior
+  affordances: *id003
+  default_states: *id004
+  original_source: table
+living_room_sofa:
+- synset: sofa.n.01
+  type: seat.n.03
+  logic_source: mapped_from_behavior
+  affordances: *id005
+  default_states: *id006
+  original_source: sofa

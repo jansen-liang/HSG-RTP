@@ -1,0 +1,321 @@
+{
+  "operating_theatre": {
+    "placement_rules": {
+      "scalpel": {
+        "relation": [
+          "on"
+        ],
+        "target": [
+          "medical_cart",
+          "surgical_table"
+        ]
+      },
+      "rubber_glove": {
+        "relation": [
+          "on",
+          "in"
+        ],
+        "target": [
+          "medical_cart",
+          "cabinet_base"
+        ]
+      },
+      "rubbing_alcohol__atomizer": {
+        "relation": [
+          "on"
+        ],
+        "target": [
+          "countertop",
+          "medical_cart"
+        ]
+      },
+      "biohazard_bin": {
+        "relation": [
+          "next_to",
+          "against"
+        ],
+        "target": [
+          "wall",
+          "cabinet_base"
+        ]
+      }
+    },
+    "functional_groups": [
+      {
+        "anchor": "surgical_table",
+        "members": [
+          "surgical_light",
+          "medical_cart",
+          "biohazard_bin"
+        ],
+        "relation": "surrounds"
+      },
+      {
+        "anchor": "countertop",
+        "members": [
+          "autoclave",
+          "sink"
+        ],
+        "relation": "on_and_next"
+      }
+    ],
+    "state_context": {
+      "autoclave": {
+        "implies_item_state": {
+          "is_sterile": true,
+          "temperature": "hot"
+        }
+      },
+      "biohazard_bin": {
+        "implies_item_state": {
+          "is_contaminated": true,
+          "is_discarded": true
+        }
+      }
+    }
+  },
+  "patient_ward": {
+    "placement_rules": {
+      "inhaler": {
+        "relation": [
+          "on",
+          "in"
+        ],
+        "target": [
+          "cabinet",
+          "medical_cart"
+        ]
+      },
+      "bottle__of__liquid_soap": {
+        "relation": [
+          "on"
+        ],
+        "target": [
+          "sink",
+          "cabinet_base"
+        ]
+      },
+      "pillow": {
+        "relation": [
+          "on"
+        ],
+        "target": [
+          "hospital_bed",
+          "crib"
+        ]
+      },
+      "tablet": {
+        "relation": [
+          "on"
+        ],
+        "target": [
+          "hospital_bed",
+          "cabinet"
+        ]
+      }
+    },
+    "functional_groups": [
+      {
+        "anchor": "hospital_bed",
+        "members": [
+          "cabinet",
+          "medical_cart",
+          "curtain"
+        ],
+        "relation": "surrounds"
+      },
+      {
+        "anchor": "crib",
+        "members": [
+          "rocking_chair",
+          "cabinet_base"
+        ],
+        "relation": "next_to"
+      },
+      {
+        "anchor": "wall",
+        "members": [
+          "wall_clock",
+          "television",
+          "elevator_panel"
+        ],
+        "relation": "against"
+      }
+    ],
+    "state_context": {
+      "hospital_bed": {
+        "implies_item_state": {
+          "is_occupied": false
+        }
+      },
+      "sink": {
+        "implies_item_state": {
+          "is_wet": true
+        }
+      }
+    }
+  },
+  "diagnostic_lab": {
+    "placement_rules": {
+      "test_tube": {
+        "relation": [
+          "on"
+        ],
+        "target": [
+          "worktable",
+          "medical_cart"
+        ]
+      },
+      "compound_microscope": {
+        "relation": [
+          "on"
+        ],
+        "target": [
+          "worktable",
+          "desk"
+        ]
+      },
+      "computer": {
+        "relation": [
+          "on"
+        ],
+        "target": [
+          "desk",
+          "worktable"
+        ]
+      },
+      "bleaching_agent__atomizer": {
+        "relation": [
+          "in",
+          "on"
+        ],
+        "target": [
+          "cabinet",
+          "countertop"
+        ]
+      }
+    },
+    "functional_groups": [
+      {
+        "anchor": "worktable",
+        "members": [
+          "swivel_chair",
+          "compound_microscope",
+          "computer"
+        ],
+        "relation": "on_and_next"
+      },
+      {
+        "anchor": "mri_scanner",
+        "members": [
+          "medical_cart",
+          "safety_screen"
+        ],
+        "relation": "next_to"
+      },
+      {
+        "anchor": "x_ray_machine",
+        "members": [
+          "screen",
+          "lead_apron"
+        ],
+        "relation": "next_to"
+      }
+    ],
+    "state_context": {
+      "mri_scanner": {
+        "implies_item_state": {
+          "is_scanned": true,
+          "magnetic_interference": true
+        }
+      },
+      "biohazard_bin": {
+        "implies_item_state": {
+          "is_hazardous": true
+        }
+      }
+    }
+  },
+  "hospital_cafeteria": {
+    "placement_rules": {
+      "flatware": {
+        "relation": [
+          "on",
+          "in"
+        ],
+        "target": [
+          "countertop",
+          "dispenser"
+        ]
+      },
+      "napkin": {
+        "relation": [
+          "on",
+          "in"
+        ],
+        "target": [
+          "pedestal_table",
+          "dispenser"
+        ]
+      },
+      "cooked__diced__carrot": {
+        "relation": [
+          "on"
+        ],
+        "target": [
+          "plate",
+          "countertop"
+        ]
+      },
+      "drink__dispenser": {
+        "relation": [
+          "on"
+        ],
+        "target": [
+          "countertop",
+          "table"
+        ]
+      }
+    },
+    "functional_groups": [
+      {
+        "anchor": "pedestal_table",
+        "members": [
+          "straight_chair",
+          "folding_chair"
+        ],
+        "relation": "surrounds"
+      },
+      {
+        "anchor": "countertop",
+        "members": [
+          "drink__dispenser",
+          "dry_food_dispenser_shelf",
+          "coffee_maker"
+        ],
+        "relation": "on_and_next"
+      },
+      {
+        "anchor": "recycling_bin",
+        "members": [
+          "public_trash_can",
+          "compost_bin"
+        ],
+        "relation": "next_to"
+      }
+    ],
+    "state_context": {
+      "public_trash_can": {
+        "implies_item_state": {
+          "is_discarded": true,
+          "is_dirty": true
+        }
+      },
+      "drink__dispenser": {
+        "implies_item_state": {
+          "is_filled": true
+        }
+      }
+    }
+  }
+}

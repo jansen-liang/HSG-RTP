@@ -1,0 +1,453 @@
+{
+  "guest_bedroom": {
+    "functional_groups": [
+      {
+        "anchor": "bed",
+        "members": [
+          "pillow",
+          "bed_linen",
+          "blanket",
+          "bedclothes"
+        ],
+        "relation": "stacked_on"
+      },
+      {
+        "anchor": "bed",
+        "members": [
+          "table_lamp",
+          "telephone",
+          "room_card"
+        ],
+        "relation": "next_to_on_nightstand"
+      },
+      {
+        "anchor": "desk",
+        "members": [
+          "swivel_chair",
+          "desk_phone",
+          "table_lamp",
+          "laptop"
+        ],
+        "relation": "in_front_of_and_on"
+      },
+      {
+        "anchor": "minibar",
+        "members": [
+          "bottle__of__glass_cleaner",
+          "shot_glass",
+          "dixie_cup"
+        ],
+        "relation": "inside"
+      }
+    ],
+    "placement_rules": {
+      "cellular_telephone": {
+        "on": [
+          "desk",
+          "bed",
+          "coffee_table"
+        ]
+      },
+      "room_card": {
+        "on": [
+          "desk",
+          "coffee_table"
+        ],
+        "next_to": [
+          "telephone"
+        ]
+      },
+      "safe_box": {
+        "in": [
+          "bedroom_furniture"
+        ],
+        "on": [
+          "floor"
+        ]
+      },
+      "luggage_cart": {
+        "next_to": [
+          "door",
+          "bed"
+        ]
+      }
+    },
+    "state_context": {
+      "minibar": {
+        "implies_item_state": {
+          "is_chilled": true
+        }
+      },
+      "bed": {
+        "implies_item_state": {
+          "is_comfortable": true
+        }
+      }
+    }
+  },
+  "hotel_bathroom": {
+    "functional_groups": [
+      {
+        "anchor": "countertop",
+        "members": [
+          "sink",
+          "soap_dispenser",
+          "toothbrush",
+          "toothpaste",
+          "hand_towel"
+        ],
+        "relation": "clustered_on"
+      },
+      {
+        "anchor": "towel_rack",
+        "members": [
+          "bath_towel",
+          "towel"
+        ],
+        "relation": "hanging_on"
+      },
+      {
+        "anchor": "floor",
+        "members": [
+          "rug",
+          "scale"
+        ],
+        "relation": "on_surface"
+      }
+    ],
+    "placement_rules": {
+      "shampoo__bottle": {
+        "in": [
+          "shower_caddy"
+        ],
+        "on": [
+          "countertop",
+          "bathtub_rim"
+        ]
+      },
+      "soap": {
+        "in": [
+          "soap_dish"
+        ]
+      },
+      "hairdryer": {
+        "on": [
+          "countertop"
+        ],
+        "in": [
+          "drawer"
+        ]
+      },
+      "toilet_soap__bottle": {
+        "next_to": [
+          "sink"
+        ]
+      }
+    },
+    "state_context": {
+      "towel_rack": {
+        "implies_item_state": {
+          "is_dry": true
+        }
+      },
+      "shower_floor": {
+        "implies_item_state": {
+          "is_wet": true
+        }
+      }
+    }
+  },
+  "restaurant_kitchen": {
+    "functional_groups": [
+      {
+        "anchor": "worktable",
+        "members": [
+          "diced__onion",
+          "diced__carrot",
+          "diced__celery",
+          "table_knife",
+          "cookie_sheet"
+        ],
+        "relation": "scattered_on"
+      },
+      {
+        "anchor": "stove",
+        "members": [
+          "kettle",
+          "cooking_oil",
+          "cooked__diced__mushroom"
+        ],
+        "relation": "on_burner"
+      },
+      {
+        "anchor": "storage_rack",
+        "members": [
+          "jar__of__vegetable",
+          "olive_oil",
+          "sesame_oil",
+          "vegetable_oil",
+          "box__of__vegetable_juice"
+        ],
+        "relation": "shelved_in"
+      }
+    ],
+    "placement_rules": {
+      "cruciferous_vegetable": {
+        "on": [
+          "worktable",
+          "counter"
+        ],
+        "in": [
+          "refrigerator",
+          "bowl"
+        ]
+      },
+      "cutlery": {
+        "in": [
+          "drawer",
+          "dishwasher_rack"
+        ],
+        "on": [
+          "worktable"
+        ]
+      },
+      "foil": {
+        "on": [
+          "counter",
+          "shelf"
+        ]
+      },
+      "diced__eggplant": {
+        "in": [
+          "pan",
+          "bowl"
+        ]
+      }
+    },
+    "state_context": {
+      "stove": {
+        "implies_item_state": {
+          "is_hot": true,
+          "is_cooking": true
+        }
+      },
+      "refrigerator": {
+        "implies_item_state": {
+          "is_preserved": true
+        }
+      }
+    }
+  },
+  "dining_hall": {
+    "functional_groups": [
+      {
+        "anchor": "breakfast_table",
+        "members": [
+          "straight_chair",
+          "highchair"
+        ],
+        "relation": "surrounds"
+      },
+      {
+        "anchor": "tabletop",
+        "members": [
+          "table_linen",
+          "place_setting",
+          "wineglass",
+          "napkin",
+          "salt_shaker"
+        ],
+        "relation": "arranged_on"
+      },
+      {
+        "anchor": "booth",
+        "members": [
+          "table",
+          "cushion"
+        ],
+        "relation": "attached_to"
+      }
+    ],
+    "placement_rules": {
+      "crockery": {
+        "on": [
+          "table",
+          "buffet_counter"
+        ]
+      },
+      "cup__of__yogurt": {
+        "on": [
+          "table",
+          "tray"
+        ]
+      },
+      "glass_lantern": {
+        "on": [
+          "table_center"
+        ]
+      },
+      "chair": {
+        "next_to": [
+          "table"
+        ],
+        "under": [
+          "table"
+        ]
+      }
+    },
+    "state_context": {
+      "buffet_warmer": {
+        "implies_item_state": {
+          "is_hot": true,
+          "is_ready_to_eat": true
+        }
+      },
+      "dirty_dish_bin": {
+        "implies_item_state": {
+          "is_dirty": true
+        }
+      }
+    }
+  },
+  "lobby_lounge": {
+    "functional_groups": [
+      {
+        "anchor": "coffee_table",
+        "members": [
+          "ashtray",
+          "magazine",
+          "coffee_cup"
+        ],
+        "relation": "on_surface"
+      },
+      {
+        "anchor": "sofa",
+        "members": [
+          "armchair",
+          "eames_chair",
+          "floor_lamp"
+        ],
+        "relation": "facing_in_circle"
+      },
+      {
+        "anchor": "elevator_door",
+        "members": [
+          "elevator_button",
+          "plant_pot"
+        ],
+        "relation": "flanking"
+      }
+    ],
+    "placement_rules": {
+      "luggage_cart": {
+        "on": [
+          "floor"
+        ],
+        "next_to": [
+          "reception_desk",
+          "elevator_door"
+        ]
+      },
+      "pottable__cactus": {
+        "on": [
+          "side_table",
+          "reception_desk"
+        ]
+      },
+      "sunglasses": {
+        "on": [
+          "coffee_table",
+          "sofa"
+        ]
+      },
+      "umbrella": {
+        "in": [
+          "umbrella_stand"
+        ],
+        "against": [
+          "wall"
+        ]
+      }
+    },
+    "state_context": {
+      "concierge_desk": {
+        "implies_item_state": {
+          "is_administrative": true
+        }
+      },
+      "entrance_mat": {
+        "implies_item_state": {
+          "is_walkable": true
+        }
+      }
+    }
+  },
+  "recreation_room": {
+    "functional_groups": [
+      {
+        "anchor": "pool_table",
+        "members": [
+          "pool_cue",
+          "billiard_ball"
+        ],
+        "relation": "on_surface"
+      },
+      {
+        "anchor": "ping_pong_table",
+        "members": [
+          "ping_pong_paddle",
+          "ping_pong_ball"
+        ],
+        "relation": "on_surface"
+      },
+      {
+        "anchor": "gaming_table",
+        "members": [
+          "folding_chair",
+          "playing_cards"
+        ],
+        "relation": "surrounds"
+      }
+    ],
+    "placement_rules": {
+      "beer_glass": {
+        "on": [
+          "side_table",
+          "bar_counter"
+        ]
+      },
+      "headset": {
+        "on": [
+          "gaming_chair",
+          "console_table"
+        ]
+      },
+      "towel": {
+        "on": [
+          "bench",
+          "chair_back"
+        ]
+      },
+      "backpack": {
+        "under": [
+          "table"
+        ],
+        "on": [
+          "chair"
+        ]
+      }
+    },
+    "state_context": {
+      "trash_can": {
+        "implies_item_state": {
+          "is_discarded": true
+        }
+      },
+      "game_console": {
+        "implies_item_state": {
+          "is_powered_on": true
+        }
+      }
+    }
+  }
+}

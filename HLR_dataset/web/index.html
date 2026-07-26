@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Graphworld Prototype</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">Graphworld Prototype</div>
+          <h1>分楼层场景图浏览器</h1>
+        </div>
+        <label class="scene-picker">
+          <span>场景</span>
+          <select id="sceneSelect"></select>
+        </label>
+      </header>
+      <main class="layout">
+        <section class="canvas-panel">
+          <div class="canvas-header">
+            <div>
+              <div class="panel-title" id="sceneTitle">加载中...</div>
+              <div class="panel-subtitle" id="floorTitle">准备读取场景</div>
+            </div>
+            <div class="stats" id="sceneStats"></div>
+          </div>
+          <div class="canvas-stage">
+            <svg id="graphSvg" viewBox="-450 -330 900 660" preserveAspectRatio="xMidYMid meet"></svg>
+          </div>
+        </section>
+        <aside class="sidebar">
+          <section class="card">
+            <div class="card-title">楼层</div>
+            <div id="floorList" class="floor-list"></div>
+          </section>
+          <section class="card">
+            <div class="card-title">节点信息</div>
+            <div id="nodeInfo" class="node-info">点击中间画布里的房间或物体查看详情。</div>
+          </section>
+        </aside>
+      </main>
+    </div>
+    <script src="/app.js" defer></script>
+  </body>
+  </html>

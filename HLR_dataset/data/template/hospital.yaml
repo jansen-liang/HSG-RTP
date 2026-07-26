@@ -1,0 +1,33 @@
+scene_type: hospital
+floors_config:
+  min_floors: 2
+  max_floors: 5
+  floor_height: 3.5
+
+# 区域定义 (Zones)
+zones:
+  lobby_area:
+    room_types: ["living_room", "hallway", "reception", "waiting_area"]
+    density: high
+  
+  ward_area:
+    room_types: ["medical", "medical", "nurse_station", "bathroom"]
+    density: medium
+  
+  surgery_area:
+    room_types: ["operating_room", "scrub_room", "recovery_room"]
+    density: low
+
+# 楼层布局策略
+layout_strategy:
+  ground_floor: ["lobby_area", "pharmacy"]
+  upper_floors: ["ward_area", "surgery_area"]
+
+# 房间复用配置 (如果房间类型没有对应的yaml，尝试复用)
+room_mapping:
+  reception: living_room
+  waiting_area: living_room
+  pharmacy: retail
+  nurse_station: office
+  scrub_room: bathroom
+  recovery_room: medical

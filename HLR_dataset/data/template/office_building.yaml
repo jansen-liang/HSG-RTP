@@ -1,0 +1,21 @@
+scene_type: office_building
+floors_config:
+  min_floors: 3
+  max_floors: 8
+
+zones:
+  workspace:
+    room_types: ["office", "office", "meeting_room", "printing_room", "bathroom"]
+  
+  executive_area:
+    room_types: ["office", "negotiation_room", "bathroom"]
+  
+  amenities:
+    room_types: ["kitchen", "gym", "lounge"]
+
+layout_strategy:
+  ground_floor: ["workspace", "amenities"]
+  upper_floors: ["workspace", "executive_area"]
+
+room_mapping:
+  lounge: living_room

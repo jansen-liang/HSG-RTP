@@ -1,0 +1,1402 @@
+alarm_clock:
+- synset: alarm_clock.n.01
+  type: clock.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+armchair:
+- synset: armchair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+backpack:
+- synset: backpack.n.01
+  type: bag.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - openable
+  - particleRemover
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOpen: false
+blackboard:
+- synset: blackboard.n.01
+  type: sheet.n.06
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+blackboard_eraser:
+- synset: blackboard_eraser.n.01
+  type: eraser.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+book:
+- synset: book.n.01
+  type: publication.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+- synset: book.n.02
+  type: product.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bookcase:
+- synset: bookcase.n.01
+  type: furniture.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bookcase_back:
+- synset: bookcase_back.n.01
+  type: furniture.n.01
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bookcase_baseboard:
+- synset: bookcase_baseboard.n.01
+  type: furniture.n.01
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bookcase_shelf:
+- synset: bookcase_shelf.n.01
+  type: furniture.n.01
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bookcase_side:
+- synset: bookcase_side.n.01
+  type: furniture.n.01
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bookcase_top:
+- synset: bookcase_top.n.01
+  type: furniture.n.01
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bookend:
+- synset: bookend.n.01
+  type: support.n.10
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+bottle__of__sunscreen:
+- synset: bottle__of__sunscreen.n.01
+  type: grocery.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+cabinet:
+- synset: cabinet.n.01
+  type: furniture.n.01
+  logic_source: behavior-1k
+  affordances: &id005
+  - assembleable
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - openable
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: &id006
+    isOpen: false
+- synset: cabinet.n.03
+  type: compartment.n.02
+  logic_source: behavior-1k
+  affordances: &id007
+  - breakable
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - openable
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: &id008
+    isOpen: false
+cabinet_base:
+- synset: cabinet_base.n.01
+  type: component.n.03
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+cabinet_door:
+- synset: cabinet_door.n.01
+  type: component.n.03
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+catalog:
+- synset: catalog.n.01
+  type: book.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+chair:
+- synset: chair.n.01
+  type: seat.n.03
+  logic_source: behavior-1k
+  affordances: &id003
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: &id004 {}
+chaise_longue:
+- synset: chaise_longue.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+clock:
+- synset: clock.n.01
+  type: timepiece.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+comic_book:
+- synset: comic_book.n.01
+  type: magazine.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+computer:
+- synset: computer.n.01
+  type: machine.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+computer_game:
+- synset: computer_game.n.01
+  type: game.n.03
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+desk:
+- synset: desk.n.01
+  type: table.n.02
+  logic_source: behavior-1k
+  affordances: &id001
+  - assembleable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: &id002 {}
+desk_bracket:
+- synset: desk_bracket.n.01
+  type: component.n.03
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+desk_leg:
+- synset: desk_leg.n.01
+  type: component.n.03
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+desk_phone:
+- synset: desk_phone.n.01
+  type: telephone.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+desk_top:
+- synset: desk_top.n.01
+  type: component.n.03
+  logic_source: behavior-1k
+  affordances:
+  - attachable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+desktop_computer:
+- synset: desktop_computer.n.01
+  type: personal_computer.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+digital_computer:
+- synset: digital_computer.n.01
+  type: computer.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+eames_chair:
+- synset: eames_chair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+elevator_door:
+- synset: elevator_door.n.01
+  type: movable_barrier.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+eraser:
+- synset: eraser.n.01
+  type: implement.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+folding_chair:
+- synset: folding_chair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+game_console:
+- synset: game_console.n.01
+  type: personal_computer.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+grandfather_clock:
+- synset: grandfather_clock.n.01
+  type: pendulum_clock.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+hardback:
+- synset: hardback.n.01
+  type: book.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+highchair:
+- synset: highchair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+label:
+- synset: label.n.04
+  type: marker.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+laptop:
+- synset: laptop.n.01
+  type: portable_computer.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - openable
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOpen: false
+    isOn: false
+lawn_chair:
+- synset: lawn_chair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+lint_screen:
+- synset: lint_screen.n.01
+  type: screen.n.05
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+marker:
+- synset: marker.n.02
+  type: symbol.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+- synset: marker.n.03
+  type: writing_implement.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+notebook:
+- synset: notebook.n.01
+  type: book.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+paperback_book:
+- synset: paperback_book.n.01
+  type: book.n.02
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+pendulum_clock:
+- synset: pendulum_clock.n.01
+  type: clock.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+personal_computer:
+- synset: personal_computer.n.01
+  type: digital_computer.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+portable_computer:
+- synset: portable_computer.n.01
+  type: personal_computer.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+projector:
+- synset: projector.n.02
+  type: optical_instrument.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+public_trash_can:
+- synset: public_trash_can.n.01
+  type: bin.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+reception_desk:
+- synset: reception_desk.n.01
+  type: counter.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+recycling_bin:
+- synset: recycling_bin.n.01
+  type: bin.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - fillable
+  - freezable
+  - grassyable
+  - heatable
+  - moldyable
+  - nonSubstance
+  - openable
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOpen: false
+rocking_chair:
+- synset: rocking_chair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+rubber_eraser:
+- synset: rubber_eraser.n.01
+  type: eraser.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - flammable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+screen:
+- synset: screen.n.01
+  type: surface.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+- synset: screen.n.05
+  type: protective_covering.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+- synset: screen.n.09
+  type: partition.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+straight_chair:
+- synset: straight_chair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+swivel_chair:
+- synset: swivel_chair.n.01
+  type: chair.n.01
+  logic_source: behavior-1k
+  affordances:
+  - breakable
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+tablet:
+- synset: tablet.n.05
+  type: portable_computer.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+textbook:
+- synset: textbook.n.01
+  type: book.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+wall_clock:
+- synset: wall_clock.n.01
+  type: clock.n.01
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+windshield:
+- synset: windshield.n.01
+  type: screen.n.05
+  logic_source: behavior-1k
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - wetable
+  - wrinkleable
+  default_states: {}
+lecture_desk:
+- synset: desk.n.01
+  type: table.n.02
+  logic_source: mapped_from_behavior
+  affordances: *id001
+  default_states: *id002
+  original_source: desk
+student_chair:
+- synset: chair.n.01
+  type: seat.n.03
+  logic_source: mapped_from_behavior
+  affordances: *id003
+  default_states: *id004
+  original_source: chair
+podium:
+- synset: cabinet.n.01
+  type: furniture.n.01
+  logic_source: mapped_from_behavior
+  affordances: *id005
+  default_states: *id006
+  original_source: cabinet
+- synset: cabinet.n.03
+  type: compartment.n.02
+  logic_source: mapped_from_behavior
+  affordances: *id007
+  default_states: *id008
+  original_source: cabinet
+elevator_button:
+- synset: switch.n.01
+  type: control.n.09
+  logic_source: mapped_from_behavior
+  affordances:
+  - disinfectable
+  - dustyable
+  - grassyable
+  - moldyable
+  - nonSubstance
+  - rigidBody
+  - rustable
+  - sceneObject
+  - scratchable
+  - stainable
+  - stickyable
+  - tarnishable
+  - toggleable
+  - wetable
+  - wrinkleable
+  default_states:
+    isOn: false
+  original_source: switch
