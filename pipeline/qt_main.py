@@ -24,9 +24,9 @@ from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QFont
 
 # 导入你的业务模块 (如果文件位置不同，请自行调整 import 路径)
-from utils.task_generator import Task, TaskType, DifficultyLevel
-from utils.action_planner import plan_actions
-from utils.simulator import execute_subtask
+from .utils.task_generator import Task, TaskType, DifficultyLevel
+from .utils.action_planner import plan_actions
+from .utils.simulator import execute_subtask
 from editor.services.scene_registry import load_all_scenes
 from editor.widgets.editor_page import SceneEditorPage
 
@@ -280,10 +280,10 @@ class SceneGraphCanvas(QWidget):
 # ==========================================
 # 主窗口框架 (统一画布架构)
 # ==========================================
-class HLRVisualizer(QMainWindow):
+class HSGRTPVisualizer(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("HLR Scene Graph Full Visualizer")
+        self.setWindowTitle("HSG-RTP Scene Graph Full Visualizer")
 
         # ====== 地图加载逻辑 ======
         # 1. 加载系统自带的地图 (HOTEL, OFFICE 等)
@@ -769,6 +769,6 @@ class HLRVisualizer(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = HLRVisualizer()
+    window = HSGRTPVisualizer()
     window.show()
     sys.exit(app.exec())

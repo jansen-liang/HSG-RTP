@@ -97,16 +97,16 @@ def load_lora_model(model, lora_path: str, lora_r=8, lora_alpha=16, lora_dropout
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run inference with HLR model")
-    parser.add_argument('--model_path', type=str, default=os.getenv('HLR_MODEL_PATH', 'Qwen/Qwen3-8B'))
+    parser = argparse.ArgumentParser(description="Run inference with the HSG-RTP model")
+    parser.add_argument('--model_path', type=str, default=os.getenv('HSG_RTP_MODEL_PATH', os.getenv('HLR_MODEL_PATH', 'Qwen/Qwen3-8B')))
     # text_model_name 已移除，现在直接使用 Qwen 的文本编码器
-    parser.add_argument('--data_path', type=str, default=os.getenv('HLR_EVAL_DATA', 'pipeline/output/test.jsonl'))
+    parser.add_argument('--data_path', type=str, default=os.getenv('HSG_RTP_EVAL_DATA', os.getenv('HLR_EVAL_DATA', 'pipeline/output/test.jsonl')))
     parser.add_argument('--use_lora', action='store_true', default=True)
-    parser.add_argument('--lora_checkpoint', type=str, default=os.getenv('HLR_LORA_CHECKPOINT'))
+    parser.add_argument('--lora_checkpoint', type=str, default=os.getenv('HSG_RTP_LORA_CHECKPOINT', os.getenv('HLR_LORA_CHECKPOINT')))
     parser.add_argument('--device', type=str, default='cuda' if torch.cuda.is_available() else 'cpu')
     parser.add_argument('--max_samples', type=int, default=None)
-    parser.add_argument('--lora_r', type=int, default=8)
-    parser.add_argument('--lora_alpha', type=int, default=16)
+    parser.add_argument('--lora_r', type=int, default=16)
+    parser.add_argument('--lora_alpha', type=int, default=32)
     parser.add_argument('--lora_dropout', type=float, default=0.1)
     parser.add_argument('--deepspeed_config', type=str, default=None, help='DeepSpeed config file')
     parser.add_argument('--local_rank', type=int, default=-1, help='Local rank for distributed training')

@@ -32,27 +32,7 @@
         "enabled": false
     },
     "zero_optimization": {
-        "stage": 2,
-        "offload_optimizer": {
-            "device": "none",
-            "pin_memory": true,
-            "buffer_count": 4
-        },
-        "offload_param": {
-            "device": "none",
-            "pin_memory": true,
-            "buffer_count": 4
-        },
-        "allgather_partitions": true,
-        "allgather_bucket_size": 2e8,
-        "overlap_comm": true,
-        "reduce_scatter": true,
-        "reduce_bucket_size": 2e8,
-        "contiguous_gradients": true
-    },
-    "activation_checkpointing": {
-        "partition_activations": true,
-        "cpu_checkpointing": false
+        "stage": 0
     },
     "gradient_clipping": 1.0,
     "steps_per_print": 10

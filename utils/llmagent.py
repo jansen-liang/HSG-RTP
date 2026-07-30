@@ -282,7 +282,7 @@ if __name__ == "__main__":
     print("✅ 纯文本回答:", text_result)
 
     # === 测试多模态（如配置了图像路径）===
-    image_path = r"E:\Desktop\HLR\data\sg\allensville_scene_graph_3d.png"
+    image_path = os.path.join("pipeline", "sg", "fig", "allensville_scene_graph_3d.png")
     if os.path.exists(image_path):
         print("\n" + "="*50)
         print("🖼️  测试多模态 VLM：gpt-4o-mini")

@@ -3,15 +3,15 @@ set -e
 
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-OUTPUT_DIR="${HLR_OUTPUT_DIR:-$PROJECT_ROOT/pipeline/output}"
+OUTPUT_DIR="${HSG_RTP_OUTPUT_DIR:-${HLR_OUTPUT_DIR:-$PROJECT_ROOT/pipeline/output}}"
 mkdir -p "$OUTPUT_DIR"
-OUTPUT_FILE="$OUTPUT_DIR/hlr_dataset_${TIMESTAMP}.json"
+OUTPUT_FILE="$OUTPUT_DIR/hsg_rtp_dataset_${TIMESTAMP}.json"
 
-cd "$PROJECT_ROOT/pipeline"
+cd "$PROJECT_ROOT"
 
 # hotel supermarket allensville
 
-python main.py \
+python -m pipeline.main \
     --scenes  hotel supermarket allensville office pudu \
     --task-types delivery tidying guidance \
     --difficulties easy medium hard \

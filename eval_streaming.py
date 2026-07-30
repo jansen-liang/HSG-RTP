@@ -17,7 +17,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from utils.dataloader_streaming import StreamingSceneGraphDataLoader
 from utils.streaming_hlr import StreamingSceneInstructionQwenModel
-from peft import LoraConfig, get_peft_model, TaskType
+from peft import PeftModel
 
 
 # ======================
@@ -425,7 +425,7 @@ def clean_prediction_text(text: str) -> str:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--checkpoint', type=str, required=True, help='Path to checkpoint')
-    parser.add_argument('--model_path', type=str, default=os.getenv('HLR_MODEL_PATH', 'Qwen/Qwen3-8B'), help='Base model path')
+    parser.add_argument('--model_path', type=str, default=os.getenv('HSG_RTP_MODEL_PATH', os.getenv('HLR_MODEL_PATH', 'Qwen/Qwen3-8B')), help='Base model path')
     parser.add_argument('--data_path', type=str, required=True, help='Dataset path')
     parser.add_argument('--max_samples', type=int, default=100, help='Max complete tasks to evaluate')
     parser.add_argument('--batch_size', type=int, default=1, help='Batch size')
@@ -462,16 +462,7 @@ if __name__ == "__main__":
     print(f"Resuming from epoch {start_epoch}")
 
     # Load LoRA
-    lora_config = LoraConfig(
-        task_type=TaskType.CAUSAL_LM,
-        r=8,
-        lora_alpha=16,
-        lora_dropout=0.1,
-        target_modules=['q_proj', 'k_proj', 'v_proj', 'o_proj'],
-        bias="none"
-    )
-    model.llm = get_peft_model(model.llm, lora_config)
-    model.llm.load_adapter(resume_path, adapter_name="default")
+    model.llm = PeftModel.from_pretrained(model.llm, resume_path)
     print("LoRA weights loaded")
 
     # Move to GPU

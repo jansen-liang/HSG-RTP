@@ -1,4 +1,4 @@
-"""主入口 - HLR 数据管道"""
+"""主入口 - HSG-RTP 数据管道"""
 
 import json
 import yaml
@@ -9,15 +9,15 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 from typing import Dict, List
 from tqdm import tqdm
-from utils.scene_loader import load_scenes, get_scene_stats
-from utils.task_generator import generate_tasks
-from utils.action_planner import plan_actions, generate_global_plan
-from utils.sample_builder import build_optimized_streaming_samples, validate_sample_quality
-from utils.simulator import simulate_execution
-from utils.llmagent import llm_query
+from .utils.scene_loader import load_scenes, get_scene_stats
+from .utils.task_generator import generate_tasks
+from .utils.action_planner import plan_actions, generate_global_plan
+from .utils.sample_builder import build_optimized_streaming_samples, validate_sample_quality
+from .utils.simulator import simulate_execution
+from .utils.llmagent import llm_query
 def parse_args():
     """解析命令行参数"""
-    parser = argparse.ArgumentParser(description='HLR Data Pipeline')
+    parser = argparse.ArgumentParser(description='HSG-RTP Data Pipeline')
     
     parser.add_argument('--scenes', nargs='+', 
                        default=["hotel", "supermarket", "allensville", "office"],
@@ -174,7 +174,7 @@ def process_scene(scene_name: str, scene: dict, config: dict) -> List[Dict]:
 
 def main():
     """主函数"""
-    print("Starting HLR Data Pipeline")
+    print("Starting HSG-RTP Data Pipeline")
     
     # 解析命令行参数
     args = parse_args()

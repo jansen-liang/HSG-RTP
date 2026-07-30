@@ -41,9 +41,11 @@ secrets.json
 # Generated data and private review material
 /data/
 /iros/
+/docs/paper/
 /HLR_dataset/dataset_output/
 /HLR_dataset/data/scene_graphs/*.html
 /pipeline/output/
+/evaluation_results/
 
 # Internal working notes
 /10.15记录.md
@@ -52,6 +54,16 @@ secrets.json
 /docs/*论文修改方向*.docx
 /docs/*论文修改方向*.odt
 /docs/*.bak
+/docs/*导师汇报*
+/docs/*讨论文档*
+/docs/figures/
+/docs/graphworld_literature_positioning_*.md
+/docs/research_outline_*.md
+/docs/scene_generation_*.md
+/docs/scene_graph_research_notes.md
+/docs/stage_report_*.md
+/docs/tongtest_task_generation_*.md
+/pipeline/1016.md
 
 # LaTeX build artifacts
 docs/paper/build/

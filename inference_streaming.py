@@ -13,13 +13,20 @@ from peft import PeftModel, LoraConfig, TaskType, get_peft_model
 import time
 
 
-def load_streaming_lora_model(model, lora_path: str, lora_r=8, lora_alpha=16, lora_dropout=0.1):
-    """为流式模型加载LoRA权重"""
+def load_streaming_lora_model(model, lora_path: str):
+    """从 checkpoint 配置加载流式模型的 LoRA 权重。"""
+    adapter_config_path = os.path.join(lora_path, "adapter_config.json")
+    if not os.path.exists(adapter_config_path):
+        raise FileNotFoundError(f"LoRA adapter config not found: {adapter_config_path}")
+
+    with open(adapter_config_path, "r", encoding="utf-8") as config_file:
+        adapter_config = json.load(config_file)
+
     lora_config = LoraConfig(
         task_type=TaskType.CAUSAL_LM,
-        r=lora_r,
-        lora_alpha=lora_alpha,
-        lora_dropout=lora_dropout,
+        r=int(adapter_config["r"]),
+        lora_alpha=int(adapter_config["lora_alpha"]),
+        lora_dropout=float(adapter_config.get("lora_dropout", 0.0)),
         target_modules=['q_proj', 'k_proj', 'v_proj', 'o_proj'],
         bias="none"
     )
@@ -476,7 +483,7 @@ def stream_validate_with_error_tracking(model, dataloader, device, rank=0, world
 def main():
     parser = argparse.ArgumentParser(description='流式模型推理和评估脚本')
     parser.add_argument('--model_path', type=str, 
-                       default=os.getenv('HLR_MODEL_PATH', 'Qwen/Qwen3-8B'),
+                       default=os.getenv('HSG_RTP_MODEL_PATH', os.getenv('HLR_MODEL_PATH', 'Qwen/Qwen3-8B')),
                        help='基础模型路径')
     parser.add_argument('--lora_path', type=str, required=True,
                        help='LoRA checkpoint路径')
@@ -538,7 +545,7 @@ def main():
         # 加载LoRA权重
         if local_rank == 0:
             print(f"加载LoRA权重: {args.lora_path}")
-        load_streaming_lora_model(model, args.lora_path, lora_r=8)
+        load_streaming_lora_model(model, args.lora_path)
         
         # 使用 DeepSpeed 初始化模型
         model_engine, _, _, _ = deepspeed.initialize(
@@ -549,8 +556,8 @@ def main():
                 "train_micro_batch_size_per_gpu": args.batch_size,
                 "steps_per_print": 1000,
                 "zero_optimization": {"stage": 0},  # 推理时不需要 ZeRO
-                "fp16": {"enabled": False},
-                "bf16": {"enabled": True}
+                "fp16": {"enabled": True},
+                "bf16": {"enabled": False}
             }
         )
         

@@ -9,7 +9,8 @@
             "betas": [0.9, 0.999],
             "eps": 1e-8,
             "weight_decay": 0.01,
-            "torch_adam": true
+            "torch_adam": true,
+            "fused": true
         }
     },
     "scheduler": {
@@ -24,7 +25,7 @@
         "enabled": true,
         "loss_scale": 0,
         "loss_scale_window": 1000,
-        "initial_scale_power": 16,
+        "initial_scale_power": 12,
         "hysteresis": 2,
         "min_loss_scale": 1
     },
@@ -32,27 +33,12 @@
         "enabled": false
     },
     "zero_optimization": {
-        "stage": 2,
-        "offload_optimizer": {
-            "device": "none",
-            "pin_memory": true,
-            "buffer_count": 4
-        },
-        "offload_param": {
-            "device": "none",
-            "pin_memory": true,
-            "buffer_count": 4
-        },
+        "stage": 1,
         "allgather_partitions": true,
-        "allgather_bucket_size": 2e8,
-        "overlap_comm": true,
-        "reduce_scatter": true,
-        "reduce_bucket_size": 2e8,
+        "allgather_bucket_size": 50000000,
+        "reduce_bucket_size": 50000000,
+        "overlap_comm": false,
         "contiguous_gradients": true
-    },
-    "activation_checkpointing": {
-        "partition_activations": true,
-        "cpu_checkpointing": false
     },
     "gradient_clipping": 1.0,
     "steps_per_print": 10

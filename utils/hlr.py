@@ -40,7 +40,7 @@ class SceneInstructionQwenModel(nn.Module):
             device_map=None,
             trust_remote_code=True,
             config=config,
-            attn_implementation="flash_attention_2"  # 优化：4090 必开，大幅提速且省显存
+            attn_implementation="sdpa"
         )
 
         # Instruction encoder
@@ -113,10 +113,10 @@ class SceneInstructionQwenModel(nn.Module):
 
         graph_embeds = self.graph_encoder(scene_graphs) 
         graph_embeds = self.graph_proj(graph_embeds).to(device)
-        graph_lengths = torch.tensor([
-            len(self.graph_encoder.bfs_traversal(sg, sg["agent"]["position"]))
-            for sg in scene_graphs
-        ], device=device)
+        graph_lengths = torch.tensor(
+            [self.graph_encoder.sequence_length(sg) for sg in scene_graphs],
+            device=device,
+        )
 
         graph_attention_mask = torch.arange(graph_embeds.size(1), device=device)[None, :] < graph_lengths[:, None]
         graph_attention_mask = graph_attention_mask.long()
@@ -179,13 +179,19 @@ class SceneInstructionQwenModel(nn.Module):
             )
             extended_labels[:, prefix_len:] = labels
 
+            logits_to_keep = self.max_output_length + 1
+            shift_labels = torch.nn.functional.pad(extended_labels, (0, 1), value=-100)
+            shift_labels = shift_labels[:, 1:][:, -logits_to_keep:].contiguous()
+
             outputs = self.llm(
                 inputs_embeds=full_embeds,
                 attention_mask=full_attention_mask,
                 labels=extended_labels,
-                use_cache=False
+                use_cache=False,
+                logits_to_keep=logits_to_keep,
+                shift_labels=shift_labels,
             )
-            return {"loss": outputs.loss, "logits": outputs.logits}
+            return {"loss": outputs.loss}
 
         else:
             # Inference mode

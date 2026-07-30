@@ -1,7 +1,5 @@
 """场景加载器 - 从 sg/scene_graph.py 加载场景图数据"""
 
-import sys
-from pathlib import Path
 from typing import Dict, List
 
 def load_scenes(scene_names: List[str], sg_module_path: str = "data/sg/scene_graph.py") -> Dict[str, dict]:
@@ -18,10 +16,7 @@ def load_scenes(scene_names: List[str], sg_module_path: str = "data/sg/scene_gra
     scenes = {}
     
     try:
-        sg_dir = str(Path(__file__).parent.parent / "sg")
-        if sg_dir not in sys.path:
-            sys.path.insert(0, sg_dir)
-        import sg.scene_graph as scene_graph
+        from ..sg import scene_graph
     except ImportError as e:
         raise ImportError(f"Cannot import scene_graph module: {e}")
     

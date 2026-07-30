@@ -31,9 +31,18 @@ def print_trainable_parameters(model, rank=0):
 
 
 
-def train_epoch(model_engine, dataloader, rank=0, epoch=0, world_size=1):
+def train_epoch(
+    model_engine,
+    dataloader,
+    rank=0,
+    epoch=0,
+    world_size=1,
+    max_batches=None,
+    log_batch_metadata=False,
+):
     model_engine.train()
     total_loss = 0.0
+    processed_batches = 0
     num_batches = len(dataloader)
 
     if rank == 0:
@@ -48,12 +57,22 @@ def train_epoch(model_engine, dataloader, rank=0, epoch=0, world_size=1):
     )
     
     for batch_idx, batch in enumerate(pbar):  # 直接用 dataloader，不要 pbar
+        if max_batches is not None and batch_idx >= max_batches:
+            break
         try:
             instructions = batch['instructions']
             completed = batch['completed']
             pending = batch['pending']
             scene_graphs = batch['scene_graphs']
             target_subtasks = batch['subtasks']
+
+            if log_batch_metadata:
+                metadata = []
+                for scene_graph in scene_graphs:
+                    mode = "local" if "current_room" in scene_graph else "global"
+                    length = model_engine.module.graph_encoder.sequence_length(scene_graph)
+                    metadata.append(f"{mode}:{length}")
+                print(f"[Rank {rank}] batch={batch_idx} graph_sequences={metadata}", flush=True)
             
             outputs = model_engine(
                 instructions=instructions,
@@ -72,6 +91,7 @@ def train_epoch(model_engine, dataloader, rank=0, epoch=0, world_size=1):
             model_engine.step()
 
             total_loss += loss.item()
+            processed_batches += 1
             
             # 👇 关键：所有 rank 都执行相同的代码路径！
             try:
@@ -81,7 +101,7 @@ def train_epoch(model_engine, dataloader, rank=0, epoch=0, world_size=1):
                 current_lr = 0.0
             
             # 所有 rank 都计算 avg_loss，但只在 rank 0 打印/log
-            avg_loss = total_loss / (batch_idx + 1)
+            avg_loss = total_loss / processed_batches
             
             # 只在 rank 0 更新进度条和 log
             if rank == 0:
@@ -100,17 +120,16 @@ def train_epoch(model_engine, dataloader, rank=0, epoch=0, world_size=1):
                 torch.cuda.empty_cache()
 
         except Exception as e:
-            # 所有 rank 都打印错误（便于调试）
             print(f"[Rank {rank}] Error in batch {batch_idx}: {e}")
-            continue
+            raise
 
-    return total_loss / num_batches if num_batches > 0 else 0.0
+    return total_loss / processed_batches if processed_batches > 0 else 0.0
 
 def train():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_path', type=str, default=os.getenv('HLR_TRAIN_DATA', 'pipeline/output/train.jsonl'))
+    parser.add_argument('--data_path', type=str, default=os.getenv('HSG_RTP_TRAIN_DATA', os.getenv('HLR_TRAIN_DATA', 'pipeline/output/train.jsonl')))
     parser.add_argument('--val_data_path', type=str)
-    parser.add_argument('--model_path', type=str, default=os.getenv('HLR_MODEL_PATH', 'Qwen/Qwen3-8B'))
+    parser.add_argument('--model_path', type=str, default=os.getenv('HSG_RTP_MODEL_PATH', os.getenv('HLR_MODEL_PATH', 'Qwen/Qwen3-8B')))
     parser.add_argument('--save_dir', type=str, default='./checkpoints')
     parser.add_argument('--epochs', type=int, default=10)
     parser.add_argument('--use_lora', action='store_true', default=True)
@@ -123,9 +142,12 @@ def train():
     parser.add_argument('--deepspeed_config', type=str, default='deepspeed_config.json')
     parser.add_argument('--local_rank', type=int, default=-1)
     parser.add_argument('--gpu_nums', type=int, default=1)
+    parser.add_argument('--max_train_batches', type=int, default=None)
+    parser.add_argument('--max_val_samples', type=int, default=30)
+    parser.add_argument('--log_batch_metadata', action='store_true')
     parser.add_argument('--ablation', type=str, default="none", 
                         choices=["none", "no_hsge", "no_hsge_local", "no_context"],
-                        help="Ablation setting: 'none' (Full HLR), 'no_hsge' (Pure Text), 'no_hsge_local' (No Local Graph), 'no_context' (No History/Prompt)")
+                        help="Ablation setting: 'none' (Full HSG-RTP), 'no_hsge' (Pure Text), 'no_hsge_local' (No Local Graph), 'no_context' (No History/Prompt)")
   
     args = parser.parse_args()
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -146,18 +168,18 @@ def train():
     use_context = True
     
     if args.ablation == "no_hsge":
-        if rank == 0: print(">>> Ablation Mode: HLR (w/o HSGE) - Pure Text")
+        if rank == 0: print(">>> Ablation Mode: HSG-RTP (w/o HSGE) - Pure Text")
         use_hsge = False
         use_local_graph = False
     elif args.ablation == "no_hsge_local":
-        if rank == 0: print(">>> Ablation Mode: HLR (w/o HSGE-local) - Global Graph Only")
+        if rank == 0: print(">>> Ablation Mode: HSG-RTP (w/o HSGE-local) - Global Graph Only")
         use_hsge = True
         use_local_graph = False
     elif args.ablation == "no_context":
-        if rank == 0: print(">>> Ablation Mode: HLR (w/o context) - No History/Prompt")
+        if rank == 0: print(">>> Ablation Mode: HSG-RTP (w/o context) - No History/Prompt")
         use_context = False
     else:
-        if rank == 0: print(">>> Ablation Mode: Full HLR")
+        if rank == 0: print(">>> Ablation Mode: Full HSG-RTP")
 
     # 使用支持流式输出的模型（现在使用Qwen文本编码器）
     model = StreamingSceneInstructionQwenModel(
@@ -254,6 +276,13 @@ def train():
             )
             model.llm = get_peft_model(model.llm, lora_config)
 
+    model.llm.config.use_cache = False
+    model.llm.gradient_checkpointing_enable(
+        gradient_checkpointing_kwargs={"use_reentrant": False}
+    )
+    if hasattr(model.llm, "enable_input_require_grads"):
+        model.llm.enable_input_require_grads()
+
     if rank == 0:
         print(f"DeepSpeed enabled, World size: {world_size}")
         wandb.init(
@@ -314,7 +343,9 @@ def train():
             train_dataloader, 
             rank, 
             epoch,
-            world_size
+            world_size,
+            args.max_train_batches,
+            args.log_batch_metadata,
         )
 
         val_loss = None
@@ -325,7 +356,7 @@ def train():
                 model_engine.module, 
                 val_dataloader, 
                 model_engine.device, 
-                max_samples=30  # Limit validation to 30 samples
+                max_samples=args.max_val_samples
             )
             if rank == 0:
                 print(f"Epoch {epoch+1}/{args.epochs} - Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
@@ -357,7 +388,7 @@ def train():
             torch.cuda.empty_cache()
 
         # 保存checkpoint（与原脚本类似，但保存streaming模型）
-        if rank == 0 and epoch % 2 == 0:
+        if rank == 0:
             save_path = os.path.join(args.save_dir, f'streaming_qwen_{timestamp}', f'epoch_{epoch+1}')
             os.makedirs(save_path, exist_ok=True)
             

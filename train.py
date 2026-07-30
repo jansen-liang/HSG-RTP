@@ -91,9 +91,9 @@ def train_epoch(model_engine, dataloader, rank=0, epoch=0):
 
 def train():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_path', type=str, default=os.getenv('HLR_TRAIN_DATA', 'pipeline/output/train.jsonl'))
+    parser.add_argument('--data_path', type=str, default=os.getenv('HSG_RTP_TRAIN_DATA', os.getenv('HLR_TRAIN_DATA', 'pipeline/output/train.jsonl')))
     parser.add_argument('--val_data_path', type=str)
-    parser.add_argument('--model_path', type=str, default=os.getenv('HLR_MODEL_PATH', 'Qwen/Qwen3-8B'))
+    parser.add_argument('--model_path', type=str, default=os.getenv('HSG_RTP_MODEL_PATH', os.getenv('HLR_MODEL_PATH', 'Qwen/Qwen3-8B')))
     parser.add_argument('--save_dir', type=str, default='./checkpoints')
     parser.add_argument('--epochs', type=int, default=10)
     parser.add_argument('--lr', type=float, default=2e-5)

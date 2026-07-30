@@ -59,6 +59,7 @@ Output ONLY the JSON.
         pending: List[str],
         scene_graphs: List[Dict],
         target_subtasks: Optional[List[str]] = None,
+        generation_config: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, torch.Tensor]:
         device = next(self.parameters()).device
         tokenizer = self.instruction_encoder.tokenizer
@@ -100,10 +101,10 @@ Output ONLY the JSON.
 
             graph_embeds = self.graph_encoder(graphs_to_encode)
             graph_embeds = self.graph_proj(graph_embeds).to(device)
-            graph_lengths = torch.tensor([
-                len(self.graph_encoder.bfs_traversal(sg, sg["agent"]["position"]))
-                for sg in graphs_to_encode
-            ], device=device)
+            graph_lengths = torch.tensor(
+                [self.graph_encoder.sequence_length(sg) for sg in graphs_to_encode],
+                device=device,
+            )
             graph_attention_mask = torch.arange(graph_embeds.size(1), device=device)[None, :] < graph_lengths[:, None]
             graph_attention_mask = graph_attention_mask.long()
 
@@ -182,26 +183,41 @@ Output ONLY the JSON.
             
             extended_labels[:, prefix_len:] = masked_labels
 
+            logits_to_keep = self.max_output_length + 1
+            shift_labels = torch.nn.functional.pad(extended_labels, (0, 1), value=-100)
+            shift_labels = shift_labels[:, 1:][:, -logits_to_keep:].contiguous()
+
             outputs = self.llm(
                 inputs_embeds=full_embeds,
                 attention_mask=full_attention_mask,
                 labels=extended_labels,
-                use_cache=False 
+                use_cache=False,
+                logits_to_keep=logits_to_keep,
+                shift_labels=shift_labels,
             )
-            return {"loss": outputs.loss, "logits": outputs.logits}
+            return {"loss": outputs.loss}
 
         else:
             # === Inference 模式：享受 Flash Attention 左对齐加持 ===
+            generation_config = dict(generation_config or {})
+            generation_kwargs = {
+                "max_new_tokens": self.max_output_length,
+                "eos_token_id": tokenizer.convert_tokens_to_ids("<|endoftext|>"),
+                "pad_token_id": tokenizer.pad_token_id,
+                "temperature": 0.1,
+                "top_p": 0.95,
+                "do_sample": True,
+                "use_cache": True,
+            }
+            generation_kwargs.update(generation_config)
+            if not generation_kwargs.get("do_sample", False):
+                generation_kwargs["temperature"] = None
+                generation_kwargs["top_p"] = None
+                generation_kwargs["top_k"] = None
             generated_ids = self.llm.generate(
                 inputs_embeds=fused_embeds,
                 attention_mask=fused_attention_mask,
-                max_new_tokens=self.max_output_length,
-                eos_token_id=tokenizer.convert_tokens_to_ids("<|endoftext|>"),
-                pad_token_id=tokenizer.pad_token_id,
-                temperature=0.1,
-                top_p=0.95,
-                do_sample=True,
-                use_cache=True
+                **generation_kwargs,
             )
             raw_predictions = tokenizer.batch_decode(generated_ids, skip_special_tokens=False)
             clean_predictions = [p.split("<|endoftext|>")[0].strip() if "<|endoftext|>" in p else p.strip() for p in raw_predictions]

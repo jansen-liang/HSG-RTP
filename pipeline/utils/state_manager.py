@@ -4,11 +4,10 @@
 """
 
 import json
-import os
 from copy import deepcopy
 from datetime import datetime
-from typing import Dict, List, Any, Optional, Tuple
 from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 
 class SceneGraphStateManager:
     """
@@ -22,7 +21,7 @@ class SceneGraphStateManager:
     - 可视化状态变化
     """
     
-    def __init__(self, workspace_dir: Optional[str] = None):
+    def __init__(self, workspace_dir: Optional[str] = None, verbose: bool = True):
         default_workspace = Path(__file__).resolve().parents[1] / "output" / "states"
         self.workspace_dir = Path(workspace_dir) if workspace_dir else default_workspace
         self.workspace_dir.mkdir(parents=True, exist_ok=True)
@@ -31,6 +30,7 @@ class SceneGraphStateManager:
         self.state_history: List[Dict] = []
         self.current_state: Optional[Dict] = None
         self.execution_log: List[Dict] = []
+        self.verbose = verbose
         
         # 验证规则
         self.validation_rules = self._init_validation_rules()
@@ -56,7 +56,6 @@ class SceneGraphStateManager:
             初始化的状态
         """
         self.current_state = deepcopy(scene_data)
-        self.state_history = [deepcopy(scene_data)]
         self.execution_log = []
         
         # 添加状态管理字段
@@ -67,8 +66,11 @@ class SceneGraphStateManager:
                 "last_action": None,
                 "action_count": 0
             }
+
+        self.state_history = [deepcopy(self.current_state)]
         
-        print(f"✅ 加载初始状态: {scene_data.get('name', 'unknown')} 场景")
+        if self.verbose:
+            print(f"✅ 加载初始状态: {scene_data.get('name', 'unknown')} 场景")
         return deepcopy(self.current_state)
     
     def execute_action(self, action: str) -> Tuple[bool, Dict, Optional[str]]:
@@ -95,32 +97,50 @@ class SceneGraphStateManager:
                 # 验证新状态
                 validation_result = self.validate_state(new_state)
                 if not validation_result["valid"]:
-                    return False, backup_state, f"State validation failed: {validation_result['errors']}"
+                    error = f"State validation failed: {validation_result['errors']}"
+                    self._record_execution(action, False, error)
+                    return False, backup_state, error
                 
                 # 更新状态
                 self.current_state = new_state
-                self.state_history.append(deepcopy(new_state))
-                
-                # 记录执行日志
-                self.execution_log.append({
-                    "action": action,
-                    "timestamp": datetime.now().isoformat(),
-                    "success": True,
-                    "state_version": len(self.state_history)
-                })
-                
                 # 更新元数据
+                next_version = len(self.state_history) + 1
                 self.current_state["state_metadata"]["last_action"] = action
                 self.current_state["state_metadata"]["action_count"] += 1
-                self.current_state["state_metadata"]["version"] = len(self.state_history)
+                self.current_state["state_metadata"]["version"] = next_version
+                self.state_history.append(deepcopy(self.current_state))
+                self._record_execution(action, True, None)
                 
-                print(f"✅ 执行成功: {action}")
+                if self.verbose:
+                    print(f"✅ 执行成功: {action}")
                 return True, deepcopy(self.current_state), None
             else:
+                self._record_execution(action, False, error)
                 return False, backup_state, error
                 
         except Exception as e:
-            return False, backup_state, f"Execution error: {str(e)}"
+            error = f"Execution error: {str(e)}"
+            self._record_execution(action, False, error)
+            return False, backup_state, error
+
+    def _record_execution(
+        self, action: str, success: bool, error: Optional[str]
+    ) -> None:
+        """记录成功和失败的执行尝试；失败不会推进状态版本。"""
+        state_version = 0
+        if self.current_state:
+            state_version = self.current_state.get("state_metadata", {}).get(
+                "version", len(self.state_history)
+            )
+        record = {
+            "action": action,
+            "timestamp": datetime.now().isoformat(),
+            "success": success,
+            "state_version": state_version,
+        }
+        if error:
+            record["error"] = error
+        self.execution_log.append(record)
     
     def _execute_single_action(self, state: Dict, action: str) -> Tuple[bool, Dict, Optional[str]]:
         """执行单个动作的具体实现"""
@@ -138,17 +158,32 @@ class SceneGraphStateManager:
         elif action.startswith("press("):
             return self._execute_press(new_state, action)
         elif action.startswith("wait("):
-            if "elevator_down_clear" in action:
-                pass  
-            elif "elevator_up_clear" in action:
-                pass
-            return True, state, None
+            return self._execute_wait(new_state, action)
         else:
             return False, state, f"Unknown action type: {action}"
+
+    @staticmethod
+    def _parse_arguments(
+        action: str, action_name: str, expected_count: int
+    ) -> Tuple[Optional[Tuple[str, ...]], Optional[str]]:
+        prefix = f"{action_name}("
+        if not action.startswith(prefix) or not action.endswith(")"):
+            return None, f"Invalid {action_name} format: {action}"
+        content = action[len(prefix):-1].strip()
+        arguments = tuple(part.strip() for part in content.split(",") if part.strip())
+        if len(arguments) != expected_count:
+            return None, (
+                f"{action_name} expects {expected_count} argument(s), "
+                f"got {len(arguments)}"
+            )
+        return arguments, None
     
     def _execute_goto(self, state: Dict, action: str) -> Tuple[bool, Dict, Optional[str]]:
         """执行移动动作"""
-        target = action[5:-1]  # 去掉 "goto(" 和 ")"
+        arguments, error = self._parse_arguments(action, "goto", 1)
+        if error:
+            return False, state, error
+        target = arguments[0]
         
         current_pos = state["agent"]["position"]
         
@@ -159,9 +194,7 @@ class SceneGraphStateManager:
         # 检查是否可达 (简单的邻居检查)
         current_room = state["rooms"][current_pos]
         if target != current_pos and target not in current_room.get("neighbor", []):
-            # 允许电梯间的特殊连接
-            if not (current_pos.startswith("elevator_") and target.startswith("elevator_")):
-                return False, state, f"Cannot reach {target} from {current_pos}"
+            return False, state, f"Cannot reach {target} from {current_pos}"
         
         # 更新位置
         state["agent"]["position"] = target
@@ -169,16 +202,23 @@ class SceneGraphStateManager:
     
     def _execute_pick(self, state: Dict, action: str) -> Tuple[bool, Dict, Optional[str]]:
         """执行拾取动作"""
-        obj_id = action[5:-1]
+        arguments, error = self._parse_arguments(action, "pick", 1)
+        if error:
+            return False, state, error
+        obj_id = arguments[0]
         current_pos = state["agent"]["position"]
         current_room = state["rooms"][current_pos]
         
         # 检查agent是否已持有物品
-        if state["agent"].get("state", "").startswith("holding-"):
+        inventory = state["agent"].get("inventory", {})
+        if state["agent"].get("state", "").startswith("holding-") or inventory:
             return False, state, f"Agent is already holding an object"
         
         # 检查物品是否存在且可拾取
         if obj_id in current_room.get("small_objects", {}):
+            obj_info = current_room["small_objects"][obj_id]
+            if not isinstance(obj_info, dict) or "pick" not in obj_info.get("affordance", []):
+                return False, state, f"Object {obj_id} is not pickable"
             obj_info = current_room["small_objects"].pop(obj_id)
             
             # 添加到agent库存
@@ -195,19 +235,32 @@ class SceneGraphStateManager:
     
     def _execute_place(self, state: Dict, action: str) -> Tuple[bool, Dict, Optional[str]]:
         """执行放置动作"""
-        # 解析 place(obj_id, surface_id) 格式
-        content = action[6:-1]
-        parts = content.split(", ")
-        if len(parts) != 2:
-            return False, state, f"Invalid place format: {action}"
-        
-        obj_id, surface_id = parts
+        arguments, error = self._parse_arguments(action, "place", 2)
+        if error:
+            return False, state, error
+        obj_id, surface_id = arguments
         current_pos = state["agent"]["position"]
+        current_room = state["rooms"][current_pos]
         
         # 检查agent是否持有该物品
         if ("inventory" not in state["agent"] or 
             obj_id not in state["agent"]["inventory"]):
             return False, state, f"Agent is not holding {obj_id}"
+
+        if surface_id == "floor":
+            relation_type = "on"
+        elif surface_id in current_room.get("large_objects", {}):
+            surface_info = current_room["large_objects"][surface_id]
+            relation_type = "on"
+            if isinstance(surface_info, dict):
+                relation_type = surface_info.get("placement_relation", "on")
+            if relation_type not in {"on", "in"}:
+                return False, state, (
+                    f"Surface {surface_id} has unsupported placement relation "
+                    f"{relation_type}"
+                )
+        else:
+            return False, state, f"Surface {surface_id} not found in {current_pos}"
         
         # 移除物品从库存
         obj_info = state["agent"]["inventory"].pop(obj_id)
@@ -217,14 +270,35 @@ class SceneGraphStateManager:
         if "small_objects" not in state["rooms"][current_pos]:
             state["rooms"][current_pos]["small_objects"] = {}
         
-        obj_info["relation"] = {"on": surface_id}
+        obj_info["relation"] = {relation_type: surface_id}
         state["rooms"][current_pos]["small_objects"][obj_id] = obj_info
         
         return True, state, None
     
     def _execute_scan(self, state: Dict, action: str) -> Tuple[bool, Dict, Optional[str]]:
         """执行扫描动作"""
-        target = action[5:-1]
+        arguments, error = self._parse_arguments(action, "scan", 1)
+        if error:
+            return False, state, error
+        target = arguments[0]
+        current_pos = state["agent"]["position"]
+        current_room = state["rooms"][current_pos]
+        local_items = current_room.get("items", {})
+        if isinstance(local_items, dict):
+            item_exists = target in local_items
+        elif isinstance(local_items, list):
+            item_exists = target in local_items
+        else:
+            item_exists = False
+        target_is_local = (
+            target == current_pos
+            or target == "floor"
+            or target in current_room.get("small_objects", {})
+            or target in current_room.get("large_objects", {})
+            or item_exists
+        )
+        if not target_is_local:
+            return False, state, f"Scan target {target} is not local to {current_pos}"
         
         if "scan_history" not in state["agent"]:
             state["agent"]["scan_history"] = []
@@ -236,7 +310,10 @@ class SceneGraphStateManager:
     
     def _execute_press(self, state: Dict, action: str) -> Tuple[bool, Dict, Optional[str]]:
         """执行按压动作"""
-        button_id = action[6:-1]
+        arguments, error = self._parse_arguments(action, "press", 1)
+        if error:
+            return False, state, error
+        button_id = arguments[0]
         current_pos = state["agent"]["position"]
         current_room = state["rooms"][current_pos]
         
@@ -256,6 +333,23 @@ class SceneGraphStateManager:
                 return False, state, f"Button {button_id} cannot be pressed"
         else:
             return False, state, f"Button {button_id} not found"
+
+    def _execute_wait(self, state: Dict, action: str) -> Tuple[bool, Dict, Optional[str]]:
+        """仅接受已建模的电梯通行等待条件。"""
+        arguments, error = self._parse_arguments(action, "wait", 1)
+        if error:
+            return False, state, error
+        condition = arguments[0]
+        allowed_conditions = {"elevator_down_clear", "elevator_up_clear"}
+        if condition not in allowed_conditions:
+            return False, state, f"Unknown wait condition {condition}"
+
+        current_pos = state["agent"]["position"]
+        if not current_pos.startswith("elevator_"):
+            return False, state, f"Wait condition {condition} is invalid in {current_pos}"
+
+        state["agent"].setdefault("wait_history", []).append(condition)
+        return True, state, None
     
     def validate_state(self, state: Dict) -> Dict[str, Any]:
         """

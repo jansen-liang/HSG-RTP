@@ -1,7 +1,7 @@
 """动作规划器 - 将任务转换为具体的动作序列"""
 
 from typing import Dict, List, Any, Tuple
-from utils.task_generator import Task, TaskType
+from .task_generator import Task, TaskType
 import re
 from enum import Enum
 import random
@@ -455,7 +455,12 @@ def plan_pick_with_dependency(rooms: Dict[str, Any], room_id: str, obj_id: str) 
     
     return [f"pick({obj_id})"]
 
-def generate_global_plan(subtasks: List[str], rooms: Dict[str, Any], task_type: str) -> Tuple[List[str], List[int]]:
+def generate_global_plan(
+    subtasks: List[str],
+    rooms: Dict[str, Any],
+    task_type: str,
+    initial_room: str = None,
+) -> Tuple[List[str], List[int]]:
     """
     生成 global_plan 和对应的 subtask 边界。
     
@@ -467,6 +472,22 @@ def generate_global_plan(subtasks: List[str], rooms: Dict[str, Any], task_type: 
     boundaries = []
     i = 0
     n = len(subtasks)
+
+    if initial_room in rooms and subtasks and not (
+        subtasks[0].startswith("goto(") and subtasks[0][5:-1] in rooms
+    ):
+        first_room_change = 0
+        while first_room_change < n:
+            action = subtasks[first_room_change]
+            if action.startswith("goto(") and action[5:-1] in rooms:
+                break
+            first_room_change += 1
+        description = _summarize_room_actions(
+            subtasks[:first_room_change], initial_room, task_type
+        )
+        global_plan.append(f"goto({initial_room}): {description}")
+        boundaries.append(first_room_change)
+        i = first_room_change
     
     while i < n:
         task = subtasks[i]

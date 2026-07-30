@@ -3,11 +3,13 @@
 # =================================================================
 # 1. 环境激活与系统变量
 # =================================================================
-# 激活你的 hlr 环境 (使用相对 ~ 路径)
-source ~/miniconda3/etc/profile.d/conda.sh
-conda activate hlr
+# Activate an existing Conda environment when Conda is available.
+if command -v conda >/dev/null 2>&1; then
+    eval "$(conda shell.bash hook)"
+    conda activate "${HSG_RTP_CONDA_ENV:-${HLR_CONDA_ENV:-hsg-rtp}}"
+fi
 
-# 环境变量优化：确保 4090 在单卡模式下不因为网络检查而卡顿
+# 双 RTX 2080 Ti 环境变量设置
 mkdir -p ./data/tmp
 export TMPDIR=$(pwd)/data/tmp
 export NCCL_IB_DISABLE=1
@@ -25,26 +27,26 @@ if [ "$1" != "" ]; then
 fi
 
 # 【核心修改点】训练集与验证集相对路径
-DATA_PATH="./pipeline/output/hlr_dataset_20251107_162657.jsonl"
-VAL_DATA_PATH="./pipeline/output/hlr_dataset_20251018_222538.jsonl"
+DATA_PATH="${HSG_RTP_TRAIN_DATA:-${HLR_TRAIN_DATA:-./pipeline/output/task_split/train.jsonl}}"
+VAL_DATA_PATH="${HSG_RTP_EVAL_DATA:-${HLR_EVAL_DATA:-./pipeline/output/task_split/test.jsonl}}"
 
 # 其他资源路径
-MODEL_PATH="./models/Qwen3-8B"
+MODEL_PATH="${HSG_RTP_MODEL_PATH:-${HLR_MODEL_PATH:-Qwen/Qwen3-8B}}"
 TRAIN_DS_CONFIG="./configs/train.json"  
 INFER_DS_CONFIG="./configs/inference.json"
 SAVE_DIR="./checkpoints"
-CHECKPOINT_PATH="./checkpoints/streaming_qwen_latest/epoch_1"
+CHECKPOINT_PATH="${HSG_RTP_LORA_CHECKPOINT:-${HLR_LORA_CHECKPOINT:-./checkpoints/streaming_qwen_latest/epoch_1}}"
 
 # =================================================================
-# 3. 训练参数 (48GB 显存专属优化)
+# 3. 训练参数（双卡，每卡约 22GB）
 # =================================================================
-NUM_GPUS=1
-LORA_R=8
-LORA_ALPHA=16
+NUM_GPUS=2
+LORA_R=16
+LORA_ALPHA=32
 LORA_DROPOUT=0.1
-EPOCHS=60    
+EPOCHS=3
 
-# 流式加载块大小。48GB 显存非常大，设为 100 可以让 GPU 吞吐更顺畅
+# 流式加载块大小；显存占用仍以首次完整训练为准
 CHUNK_SIZE=100  
 
 echo "Running streaming version in $MODE mode..."
@@ -77,7 +79,7 @@ case $MODE in
             --data_path "$VAL_DATA_PATH" \
             --lora_path "$CHECKPOINT_PATH" \
             --max_samples 60 \
-            --batch_size 4 \
+            --batch_size 1 \
             --chunk_size 50 \
             --output_path "./pipeline/output/result/streaming_results_$(date +%Y%m%d_%H%M%S).json" \
             --verbose

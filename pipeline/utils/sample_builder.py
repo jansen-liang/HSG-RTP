@@ -10,9 +10,9 @@
 
 from copy import deepcopy
 from typing import List, Dict, Any, Tuple
-from utils.graph_utils import get_global_view, get_local_view
-from utils.action_planner import generate_global_plan
-from utils.state_manager import SceneGraphStateManager
+from .graph_utils import get_global_view, get_local_view
+from .action_planner import generate_global_plan
+from .state_manager import SceneGraphStateManager
 
 
 def build_optimized_streaming_samples(
@@ -36,7 +36,12 @@ def build_optimized_streaming_samples(
     current_global_step = 0  # 下一个要完成的 global 步骤索引
     
     # Step 1: 生成全局计划
-    global_plan, boundaries = generate_global_plan(subtasks, initial_scene["rooms"], "general")
+    global_plan, boundaries = generate_global_plan(
+        subtasks,
+        initial_scene["rooms"],
+        "general",
+        initial_room=initial_scene["agent"]["position"],
+    )
     
     # Step 2: 初始全局样本（无 completed/pending）
     samples.append({

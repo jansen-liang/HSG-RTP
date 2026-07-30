@@ -43,6 +43,8 @@ def get_global_view(scene: dict) -> dict:
         # 保留房间类型信息（如果存在）
         if "type" in room_info:
             global_view["rooms"][room_id]["type"] = room_info["type"]
+        if "function" in room_info:
+            global_view["rooms"][room_id]["function"] = deepcopy(room_info["function"])
     
     return global_view
 

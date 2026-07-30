@@ -123,7 +123,7 @@ def add_target_hlr(ax: plt.Axes) -> None:
     ax.text(
         4.23,
         4.49,
-        "Target HLR",
+        "Target HSG-RTP",
         ha="center",
         va="center",
         fontsize=8.0,

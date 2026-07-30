@@ -194,7 +194,7 @@ class StreamingSceneGraphInstructionDataset(Dataset):
             
             # 检查数据格式
             if "streaming_samples" in data:
-                # 新的HLR数据格式，包含streaming_samples
+                # HSG-RTP streaming format containing streaming_samples.
                 streaming_samples = data.get("streaming_samples", [])
                 full_global_plan = data.get("execution_summary", {}).get("global_plan", [])
                 full_subtasks = data.get("execution_summary", {}).get("subtasks", [])  # 完整底层动作序列
@@ -211,7 +211,10 @@ class StreamingSceneGraphInstructionDataset(Dataset):
                     sample_metadata = sample_data.get("metadata", {})
                     
                     # 从context中提取instruction（如果有的话）
-                    instruction = data["instruction"]  # 主指令
+                    instruction = (
+                        sample_data.get("instruction_override")
+                        or data["instruction"]
+                    )
                     
                     # 构建JSON格式的目标输出
                     if mode == "global" and target:
@@ -735,6 +738,9 @@ class StreamingSceneGraphDataLoader:
             else:
                 self.sampler = None
                 shuffle_for_dataloader = False
+
+        if not hasattr(self.dataset, '_sample_to_chunk_map'):
+            self.dataset._build_sample_index()
 
         # 设置随机种子（如果提供）
         if self.seed is not None:
