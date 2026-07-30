@@ -59,7 +59,7 @@ The legacy `HLR_dataset/` package and `HLR_*` environment variables remain avail
 The released configuration targets Linux, Python 3.10, CUDA 12.1, and NVIDIA GPUs.
 
 ```bash
-git clone https://github.com/lzj13316223562-ui/HSG-RTP.git
+git clone https://github.com/jansen-liang/HSG-RTP.git
 cd HSG-RTP
 
 conda create -n hsg-rtp python=3.10 -y

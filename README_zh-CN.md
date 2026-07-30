@@ -36,7 +36,7 @@ HSG-RTP 是面向多房间、多楼层和长时程任务的机器人规划研究
 推荐环境为 Linux、Python 3.10、CUDA 12.1 和 NVIDIA GPU。
 
 ```bash
-git clone https://github.com/lzj13316223562-ui/HSG-RTP.git
+git clone https://github.com/jansen-liang/HSG-RTP.git
 cd HSG-RTP
 
 conda create -n hsg-rtp python=3.10 -y
