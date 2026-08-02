@@ -5,6 +5,7 @@ from evaluation.action_parser import ParseError, parse_local_action, parse_predi
 from evaluation.goal_evaluator import build_goal_spec, evaluate_goal
 from evaluation.plan_evaluator import evaluate_global_plan
 from evaluation.policies import OraclePolicy
+from evaluation.runner import evaluate_policy_dataset
 from evaluation.rollout_evaluator import evaluate_action_sequence, rollout_policy
 
 
@@ -104,6 +105,26 @@ class TaskEvaluationTest(unittest.TestCase):
         )
         result = rollout_policy(record, make_scene(), policy)
         self.assertTrue(result.success, result.failure_message)
+
+    def test_dataset_runner_reports_task_metrics_and_similarity(self) -> None:
+        record = make_record()
+        results, summary = evaluate_policy_dataset(
+            [record],
+            {"test_scene": make_scene()},
+            lambda current: OraclePolicy(
+                current["execution_summary"]["global_plan"],
+                current["execution_summary"]["subtasks"],
+            ),
+        )
+
+        self.assertEqual(len(results), 1)
+        self.assertEqual(summary["plan_sr"], 1.0)
+        self.assertEqual(summary["exec_sr"], 1.0)
+        self.assertEqual(summary["global_jaccard"], 1.0)
+        self.assertEqual(summary["global_lcs_ratio"], 1.0)
+        self.assertEqual(summary["local_jaccard"], 1.0)
+        self.assertEqual(summary["local_lcs_ratio"], 1.0)
+        self.assertEqual(summary["avg_total_tokens"], 0.0)
 
     def test_unsupported_state_goal_is_rejected(self) -> None:
         record = make_record()

@@ -49,6 +49,27 @@ def make_three_room_scene() -> dict:
 
 
 class ClosedLoopRecoveryTest(unittest.TestCase):
+    def test_strict_rollout_reports_the_original_execution_failure(self) -> None:
+        record = make_record()
+        policy = ScriptedRecoveryPolicy(
+            [record["execution_summary"]["global_plan"]],
+            ["place(parcel, table)"],
+        )
+
+        result = rollout_policy(
+            record,
+            make_scene(),
+            policy,
+            recovery_config=RecoveryConfig(
+                max_initial_plan_retries=0,
+                max_local_retries=0,
+                max_global_replans=0,
+            ),
+        )
+
+        self.assertFalse(result.success)
+        self.assertEqual(result.failure_type, "execution_error")
+
     def test_transition_subgoal_uses_elevator_destination_room(self) -> None:
         scene = {
             "agent": {"position": "elevator_2f"},

@@ -717,10 +717,16 @@ def rollout_policy(
             break
 
         if not replanned:
+            failure_type = (
+                feedback.failure_type
+                if config.max_local_retries == 0
+                and config.max_global_replans == 0
+                else "recovery_exhausted"
+            )
             return ExecutionEvaluation(
                 False,
                 tuple(completed),
-                "recovery_exhausted",
+                failure_type,
                 feedback.reason,
                 (),
                 tuple(plan),

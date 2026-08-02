@@ -1,5 +1,9 @@
 import json
+from copy import deepcopy
+import time
 from typing import Any
+
+import torch
 
 
 class StreamingModelPolicy:
@@ -8,6 +12,7 @@ class StreamingModelPolicy:
         model: Any,
         global_generation_config: dict[str, Any] | None = None,
         local_generation_config: dict[str, Any] | None = None,
+        static_scene: bool = False,
     ):
         self.model = model
         self.global_generation_config = global_generation_config or {
@@ -18,6 +23,51 @@ class StreamingModelPolicy:
             "temperature": 0.1,
             "top_p": 0.95,
         }
+        self.static_scene = static_scene
+        self.reset_usage()
+
+    def reset_usage(self) -> None:
+        self.calls: list[dict[str, Any]] = []
+        self._initial_global_scene: dict[str, Any] | None = None
+        self._initial_local_scenes: dict[str, dict[str, Any]] = {}
+
+    def _planning_scene(
+        self, mode: str, scene_graph: dict[str, Any]
+    ) -> dict[str, Any]:
+        if not self.static_scene:
+            return scene_graph
+        if mode == "global":
+            if self._initial_global_scene is None:
+                self._initial_global_scene = deepcopy(scene_graph)
+            return self._initial_global_scene
+
+        room = scene_graph.get("room", {})
+        room_id = str(
+            room.get("id")
+            or room.get("name")
+            or scene_graph.get("current_room")
+            or "unknown"
+        )
+        if room_id not in self._initial_local_scenes:
+            self._initial_local_scenes[room_id] = deepcopy(scene_graph)
+        return self._initial_local_scenes[room_id]
+
+    def usage_summary(self) -> dict[str, float | int]:
+        return {
+            "model_calls": len(self.calls),
+            "input_tokens": sum(call["input_tokens"] for call in self.calls),
+            "output_tokens": sum(call["output_tokens"] for call in self.calls),
+            "total_tokens": sum(call["total_tokens"] for call in self.calls),
+            "inference_time": sum(call["inference_time"] for call in self.calls),
+        }
+
+    def _synchronize(self) -> None:
+        try:
+            device = next(self.model.parameters()).device
+        except (AttributeError, StopIteration, TypeError):
+            return
+        if device.type == "cuda":
+            torch.cuda.synchronize(device)
 
     def _generate(
         self,
@@ -26,14 +76,37 @@ class StreamingModelPolicy:
         completed: list[str],
         pending: list[str],
         generation_config: dict[str, Any],
+        mode: str,
     ) -> str:
-        outputs = self.model(
-            instructions=[instruction],
-            completed=[completed],
-            pending=[pending],
-            scene_graphs=[scene_graph],
-            target_subtasks=None,
-            generation_config=generation_config,
+        self._synchronize()
+        start_time = time.perf_counter()
+        try:
+            planning_scene = self._planning_scene(mode, scene_graph)
+            outputs = self.model(
+                instructions=[instruction],
+                completed=[completed],
+                pending=[pending],
+                scene_graphs=[planning_scene],
+                target_subtasks=None,
+                generation_config=generation_config,
+            )
+        finally:
+            self._synchronize()
+            elapsed = time.perf_counter() - start_time
+        usage_records = outputs.get("usage", [{}])
+        usage = usage_records[0] if usage_records else {}
+        input_tokens = int(usage.get("input_tokens", 0))
+        output_tokens = int(usage.get("output_tokens", 0))
+        self.calls.append(
+            {
+                "mode": mode,
+                "input_tokens": input_tokens,
+                "output_tokens": output_tokens,
+                "total_tokens": int(
+                    usage.get("total_tokens", input_tokens + output_tokens)
+                ),
+                "inference_time": elapsed,
+            }
         )
         predictions = outputs.get("predictions", [])
         if not predictions:
@@ -49,6 +122,7 @@ class StreamingModelPolicy:
             completed,
             [],
             self.global_generation_config,
+            "global",
         )
 
     def generate_local(
@@ -64,6 +138,7 @@ class StreamingModelPolicy:
             completed,
             pending,
             self.local_generation_config,
+            "local",
         )
 
 
