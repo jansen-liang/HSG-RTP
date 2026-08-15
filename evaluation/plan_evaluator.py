@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections import deque
 from dataclasses import dataclass
 from typing import Any
@@ -22,9 +24,9 @@ def room_reachable(rooms: dict[str, Any], start: str, goal: str) -> bool:
     while queue:
         current = queue.popleft()
         neighbors = list(rooms[current].get("neighbor", []))
-        if current.startswith("elevator_"):
-            neighbors.extend(room_id for room_id in rooms if room_id.startswith("elevator_"))
         for neighbor in neighbors:
+            if current.startswith("elevator_") and neighbor.startswith("elevator_"):
+                continue
             if neighbor == goal:
                 return True
             if neighbor in rooms and neighbor not in visited:

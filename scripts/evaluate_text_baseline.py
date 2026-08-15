@@ -23,7 +23,12 @@ from pipeline.utils.scene_loader import load_scenes
 
 
 class TextBaselinePolicy:
-    def __init__(self, model_path: str, max_new_tokens: int = 448) -> None:
+    def __init__(
+        self,
+        model_path: str,
+        max_new_tokens: int = 448,
+        reasoning_mode: str = "native",
+    ) -> None:
         self.tokenizer = AutoTokenizer.from_pretrained(
             model_path, trust_remote_code=True
         )
@@ -36,6 +41,7 @@ class TextBaselinePolicy:
         )
         self.model.eval()
         self.max_new_tokens = max_new_tokens
+        self.reasoning_mode = reasoning_mode
         self.reset_usage()
 
     def reset_usage(self) -> None:
@@ -109,6 +115,8 @@ class TextBaselinePolicy:
             )
         except TypeError:
             prompt = self.tokenizer.apply_chat_template(messages, **template_kwargs)
+        if self.reasoning_mode == "suppress" and prompt.rstrip().endswith("<think>"):
+            prompt += "\n</think>\n"
         encoded = self.tokenizer(
             prompt,
             return_tensors="pt",
@@ -173,20 +181,53 @@ def main() -> None:
     parser.add_argument("--model-name", required=True)
     parser.add_argument("--dataset", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--start-index", type=int, default=0)
     parser.add_argument("--limit", type=int)
     parser.add_argument("--max-steps", type=int)
     parser.add_argument("--max-new-tokens", type=int, default=448)
+    parser.add_argument(
+        "--reasoning-mode",
+        choices=("native", "suppress"),
+        default="native",
+        help=(
+            "Keep the model's native reasoning prefix or prefill the end of a trailing "
+            "<think> block so the token budget is reserved for the JSON answer."
+        ),
+    )
     parser.add_argument("--seed", type=int, default=42)
+    controller_group = parser.add_mutually_exclusive_group()
+    controller_group.add_argument(
+        "--controller-profile",
+        choices=("raw", "bounded", "full"),
+        default="raw",
+        help=(
+            "Controller behavior: raw disables all repair and retry logic; bounded "
+            "uses the four-edit semantic repair budget; full enables all recovery."
+        ),
+    )
+    controller_group.add_argument("--enable-recovery", action="store_true")
+    controller_group.add_argument(
+        "--lightweight-controller",
+        action="store_true",
+        help="Use bounded four-edit global repair with the normal execution controller.",
+    )
     args = parser.parse_args()
 
     random.seed(args.seed)
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
     records = load_records(args.dataset)
+    if args.start_index < 0:
+        raise ValueError("--start-index must be non-negative")
+    records = records[args.start_index :]
     if args.limit is not None:
         records = records[: args.limit]
     scenes = load_scenes(sorted({record["scene_name"] for record in records}))
-    policy = TextBaselinePolicy(args.model_path, args.max_new_tokens)
+    policy = TextBaselinePolicy(
+        args.model_path,
+        args.max_new_tokens,
+        reasoning_mode=args.reasoning_mode,
+    )
     args.output_dir.mkdir(parents=True, exist_ok=True)
     results_path = args.output_dir / "task_results.jsonl"
     results_path.write_text("", encoding="utf-8")
@@ -204,16 +245,32 @@ def main() -> None:
             flush=True,
         )
 
+    controller_profile = args.controller_profile
+    if args.lightweight_controller:
+        controller_profile = "bounded"
+    elif args.enable_recovery:
+        controller_profile = "full"
+
+    if controller_profile == "bounded":
+        recovery_config = RecoveryConfig(task_semantic_repair_budget=4)
+    elif controller_profile == "full":
+        recovery_config = RecoveryConfig()
+    else:
+        recovery_config = RecoveryConfig(
+            max_local_retries=0,
+            max_global_replans=0,
+            max_initial_plan_retries=0,
+            normalize_global_rooms=False,
+            repair_global_task_plan=False,
+            complete_global_task_coverage=False,
+            repair_stalled_local_action=False,
+        )
     _, summary = evaluate_policy_dataset(
         records,
         scenes,
         lambda _: policy,
         max_steps=args.max_steps,
-        recovery_config=RecoveryConfig(
-            max_local_retries=0,
-            max_global_replans=0,
-            max_initial_plan_retries=0,
-        ),
+        recovery_config=recovery_config,
         progress_callback=record_progress,
     )
     summary.update(
@@ -221,8 +278,12 @@ def main() -> None:
             "model_name": args.model_name,
             "model_path": args.model_path,
             "dataset": str(args.dataset),
+            "start_index": args.start_index,
             "seed": args.seed,
             "baseline": "text_only_zero_shot",
+            "reasoning_mode": args.reasoning_mode,
+            "recovery_enabled": controller_profile != "raw",
+            "controller_profile": controller_profile,
         }
     )
     (args.output_dir / "summary.json").write_text(

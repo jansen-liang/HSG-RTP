@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 from collections import Counter, defaultdict
 from typing import Any, Callable
 
 from .action_parser import GlobalStep, ParseError, parse_global_step, parse_local_action
 from .perturbations import RolloutPerturbation
-from .policies import StreamingModelPolicy
+from .policies import RoutedStreamingModelPolicy, StreamingModelPolicy
 from .recovery import RecoveryConfig
 from .rollout_evaluator import PlanningPolicy, evaluate_action_sequence, rollout_policy
+from pipeline.utils.action_planner import generate_global_plan
 
 
 def _canonical_global_step(step: GlobalStep) -> str:
@@ -34,6 +37,19 @@ def _canonical_global_sequence(steps: list[str] | tuple[str, ...]) -> list[str]:
         except ParseError:
             normalized.append(str(step).strip())
     return normalized
+
+
+def _reference_global_sequence(
+    record: dict[str, Any], scene: dict[str, Any]
+) -> list[str]:
+    actions = record.get("execution_summary", {}).get("subtasks", [])
+    generated, _ = generate_global_plan(
+        actions,
+        scene.get("rooms", {}),
+        "general",
+        initial_room=scene.get("agent", {}).get("position"),
+    )
+    return _canonical_global_sequence(generated)
 
 
 def _jaccard(predicted: list[str], reference: list[str]) -> float:
@@ -130,9 +146,7 @@ def evaluate_policy_dataset(
             if execution.plan_evaluation is not None
             else []
         )
-        reference_global = _canonical_global_sequence(
-            record.get("execution_summary", {}).get("global_plan", [])
-        )
+        reference_global = _reference_global_sequence(record, scene)
         predicted_local = _canonical_local_sequence(execution.actions)
         reference_local = _canonical_local_sequence(
             record.get("execution_summary", {}).get("subtasks", [])
@@ -234,5 +248,34 @@ def evaluate_streaming_model(
         max_steps=max_steps,
         recovery_config=recovery_config,
         perturbation_factory=perturbation_factory,
+        progress_callback=progress_callback,
+    )
+
+
+def evaluate_routed_streaming_models(
+    global_model: Any,
+    local_model: Any,
+    records: list[dict[str, Any]],
+    scenes: dict[str, dict[str, Any]],
+    max_steps: int | None = None,
+    recovery_config: RecoveryConfig | None = None,
+    global_generation_config: dict[str, Any] | None = None,
+    local_generation_config: dict[str, Any] | None = None,
+    static_scene: bool = False,
+    progress_callback: Callable[[dict[str, Any]], None] | None = None,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    policy = RoutedStreamingModelPolicy(
+        global_model,
+        local_model,
+        global_generation_config=global_generation_config,
+        local_generation_config=local_generation_config,
+        static_scene=static_scene,
+    )
+    return evaluate_policy_dataset(
+        records,
+        scenes,
+        lambda _: policy,
+        max_steps=max_steps,
+        recovery_config=recovery_config,
         progress_callback=progress_callback,
     )

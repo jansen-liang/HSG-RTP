@@ -137,21 +137,21 @@ class ClosedLoopRecoveryTest(unittest.TestCase):
         )
 
         self.assertTrue(result.success, result.failure_message)
-        self.assertEqual(len(policy.global_instructions), 2)
-        self.assertNotIn("Valid room IDs", policy.global_instructions[0])
-        self.assertIn('Valid room IDs: ["room_a", "room_b"]', policy.global_instructions[1])
-        self.assertIn("missing_room", policy.global_instructions[1])
+        self.assertEqual(len(policy.global_instructions), 1)
         self.assertTrue(
             any(
-                event.get("event") == "initial_global_plan_failure"
-                and event.get("failure_type") == "invalid_global_plan"
+                event.get("event") == "initial_global_plan_grounded"
+                and any(
+                    change.get("operation") == "repair_task_route_and_coverage"
+                    for change in event.get("changes", [])
+                )
                 for event in result.recovery_trace
             )
         )
         self.assertTrue(
             any(
                 event.get("event") == "initial_global_plan_success"
-                and event.get("attempt") == 2
+                and event.get("attempt") == 1
                 for event in result.recovery_trace
             )
         )
@@ -261,7 +261,6 @@ class ClosedLoopRecoveryTest(unittest.TestCase):
         self.assertEqual(
             result.plan,
             (
-                "goto(room_a): pass()",
                 "goto(room_a): pick(parcel)",
                 "goto(room_b): place(parcel)",
             ),

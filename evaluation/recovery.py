@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from dataclasses import asdict, dataclass, field
 from typing import Any
@@ -8,6 +10,11 @@ class RecoveryConfig:
     max_local_retries: int = 2
     max_global_replans: int = 2
     max_initial_plan_retries: int = 2
+    normalize_global_rooms: bool = True
+    repair_global_task_plan: bool = True
+    complete_global_task_coverage: bool = True
+    task_semantic_repair_budget: int | None = None
+    repair_stalled_local_action: bool = True
 
 
 @dataclass(frozen=True)
@@ -67,19 +74,45 @@ def build_global_plan_instruction(
     valid_rooms: list[str],
     previous_error: str | None = None,
     retry_count: int = 0,
+    task_info: dict[str, Any] | None = None,
 ) -> str:
-    if not previous_error:
-        return instruction
-    return (
-        f"{instruction}\n\n"
-        "GLOBAL PLAN REPAIR\n"
-        f"Previous attempt {retry_count} was rejected: {previous_error}\n"
-        'Output mode must be exactly "global".\n'
-        f"Valid room IDs: {json.dumps(valid_rooms, ensure_ascii=False)}\n"
-        "Every goto target must exactly match one valid room ID.\n"
-        "Do not invent, abbreviate, translate, or rename room IDs.\n"
-        "Correct the reported errors and regenerate the complete plan."
+    task_info = task_info or {}
+    task_type = task_info.get("type", "unknown")
+    parameters = task_info.get("parameters", {})
+    constraints = {"type": task_type}
+    for key in (
+        "objects",
+        "source_room",
+        "source_rooms",
+        "target_rooms",
+        "intermediate_points",
+        "end_room",
+    ):
+        value = parameters.get(key)
+        if value not in (None, [], {}):
+            constraints[key] = value
+
+    sections = [instruction]
+    if previous_error:
+        sections.extend(
+            [
+                "GLOBAL PLAN REPAIR",
+                f"Previous attempt {retry_count} was rejected: {previous_error}",
+                f"Valid room IDs: {json.dumps(valid_rooms, ensure_ascii=False)}",
+                "Correct the reported errors and regenerate the complete plan.",
+            ]
+        )
+    sections.extend(
+        [
+            "GLOBAL TASK CONSTRAINTS",
+            json.dumps(constraints, ensure_ascii=False, separators=(",", ":")),
+            'Output mode must be exactly "global".',
+            "Use exact scene IDs. Do not abbreviate, translate, or rename them.",
+            "Delivery must explicitly pick every object in source_room before placing it in target_rooms. "
+            "Tidying must organize every object in source_rooms. Guidance must visit intermediate_points and end_room in order.",
+        ]
     )
+    return "\n".join(sections)
 
 
 def build_global_replan_instruction(

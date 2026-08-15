@@ -11,6 +11,11 @@ class EdgeIgnoringIdentity(nn.Module):
         return node_features
 
 
+class FailIfCalled(nn.Module):
+    def forward(self, *args, **kwargs):
+        raise AssertionError("Topology GNN should be disabled")
+
+
 class LocalGraphEncoderTest(unittest.TestCase):
     def make_encoder(self):
         encoder = HierarchicalSceneGraphEncoder.__new__(HierarchicalSceneGraphEncoder)
@@ -73,6 +78,7 @@ class GlobalGraphEncoderTest(unittest.TestCase):
         encoder.room_gnn = EdgeIgnoringIdentity()
         encoder.room_post_gnn = nn.Identity()
         encoder.room_residual_proj = nn.Identity()
+        encoder.use_room_gnn = True
         encoder.type_embedding = nn.Embedding(4, 4)
         nn.init.zeros_(encoder.type_embedding.weight)
         encoder.type_to_idx = {"macro": 0, "room": 1, "item": 2, "agent": 3}
@@ -140,6 +146,25 @@ class GlobalGraphEncoderTest(unittest.TestCase):
         })
 
         self.assertEqual(memberships["room_201"], ["floor_2_guest"])
+
+    def test_disabling_topology_keeps_all_global_tokens(self):
+        encoder, _ = self.make_encoder()
+        encoder.use_room_gnn = False
+        encoder.room_gnn = FailIfCalled()
+        encoder.room_post_gnn = FailIfCalled()
+        scene = {
+            "agent": {"position": "room_a", "state": "idle"},
+            "macro_zones": {"floor_1": {"rooms": ["room_a", "room_b"]}},
+            "rooms": {
+                "room_a": {"floor": "floor_1", "neighbor": ["room_b"]},
+                "room_b": {"floor": "floor_1", "neighbor": ["room_a"]},
+            },
+        }
+
+        sequence = encoder.encode_single_scene(scene)
+
+        self.assertEqual(sequence.shape, (4, 4))
+        self.assertEqual(encoder.sequence_length(scene), 4)
 
 
 if __name__ == "__main__":

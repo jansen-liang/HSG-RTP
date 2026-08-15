@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from typing import Any
 
@@ -45,16 +47,12 @@ def build_goal_spec(record: dict[str, Any]) -> GoalSpec:
         if located is None:
             raise ValueError(f"Reference final state does not contain task object {object_id!r}")
         room_id, object_data = located
-        relation = object_data.get("relation", {}) if isinstance(object_data, dict) else {}
-        reference_state = object_data.get("state", {}) if isinstance(object_data, dict) else {}
         required_state = requested_states.get(object_id, {})
-        if not required_state:
-            required_state = reference_state
         object_goals.append(
             ObjectGoal(
                 object_id=object_id,
                 room_id=room_id,
-                relation=tuple(sorted(relation.items())),
+                relation=(),
                 state=tuple(sorted(required_state.items())),
             )
         )

@@ -1,6 +1,6 @@
 import unittest
 
-from evaluation.policies import StreamingModelPolicy
+from evaluation.policies import RoutedStreamingModelPolicy, StreamingModelPolicy
 
 
 class RecordingModel:
@@ -66,6 +66,24 @@ class StreamingModelPolicyTest(unittest.TestCase):
             model.calls[0]["scene_graphs"], model.calls[1]["scene_graphs"]
         )
         self.assertIn("cup", first["room"]["items"])
+
+    def test_routed_policy_uses_separate_models(self) -> None:
+        global_model = RecordingModel()
+        local_model = RecordingModel()
+        policy = RoutedStreamingModelPolicy(
+            global_model,
+            local_model,
+            local_generation_config={"do_sample": False},
+        )
+
+        policy.generate_global("instruction", {"rooms": {"room_a": {}}}, [])
+        policy.generate_local(
+            "instruction", {"current_room": "room_a"}, [], []
+        )
+
+        self.assertEqual(len(global_model.calls), 1)
+        self.assertEqual(len(local_model.calls), 1)
+        self.assertEqual(policy.usage_summary()["model_calls"], 2)
 
 
 if __name__ == "__main__":

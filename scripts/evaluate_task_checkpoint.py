@@ -27,20 +27,41 @@ def load_records(path: Path) -> list[dict[str, Any]]:
         return [json.loads(line) for line in source if line.strip()]
 
 
+def normalize_ablation(ablation: str) -> str:
+    aliases = {
+        "none": "full",
+        "no_hsge_local": "no_object_tokens",
+        "no_local_graph": "no_object_tokens",
+        "no_context": "no_graph_updates_history",
+    }
+    return aliases.get(ablation, ablation)
+
+
 def load_model(
     model_path: str,
     checkpoint: Path,
     device: torch.device,
     ablation: str,
 ) -> Any:
+    training_state = torch.load(
+        checkpoint / "training_state.pt", map_location="cpu"
+    )
+    checkpoint_ablation = training_state.get("ablation")
+    if (
+        checkpoint_ablation
+        and normalize_ablation(checkpoint_ablation) != "full"
+        and normalize_ablation(checkpoint_ablation) != normalize_ablation(ablation)
+    ):
+        raise ValueError(
+            "Checkpoint ablation mismatch: "
+            f"checkpoint={checkpoint_ablation}, requested={ablation}"
+        )
     model = StreamingSceneInstructionQwenModel(
         llm_model_name=model_path,
         use_hsge=ablation != "no_hsge",
-        use_local_graph=ablation != "no_local_graph",
-        use_context=ablation != "no_context",
-    )
-    training_state = torch.load(
-        checkpoint / "training_state.pt", map_location="cpu"
+        use_local_graph=ablation not in ("no_local_graph", "no_object_tokens"),
+        use_context=ablation not in ("no_context", "no_graph_updates_history"),
+        use_global_topology=ablation != "no_global_topology",
     )
     additional_state = training_state.get("additional_components", {})
     for component_name in ("graph_encoder", "graph_proj", "instruction_encoder"):
@@ -98,7 +119,10 @@ def parse_args() -> argparse.Namespace:
             "full",
             "no_hsge",
             "no_local_graph",
+            "no_object_tokens",
+            "no_global_topology",
             "no_context",
+            "no_graph_updates_history",
             "no_dynamic_update",
         ),
         default="full",
@@ -157,7 +181,10 @@ def main() -> None:
         recovery_config=recovery_config,
         global_generation_config={"do_sample": False},
         local_generation_config=local_generation_config,
-        static_scene=args.ablation == "no_dynamic_update",
+        static_scene=args.ablation in (
+            "no_dynamic_update",
+            "no_graph_updates_history",
+        ),
         progress_callback=record_progress,
     )
     summary.update(

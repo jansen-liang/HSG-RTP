@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from copy import deepcopy
 import time
@@ -139,6 +141,57 @@ class StreamingModelPolicy:
             pending,
             self.local_generation_config,
             "local",
+        )
+
+
+class RoutedStreamingModelPolicy:
+    """Route global and local generation to independently loaded models."""
+
+    def __init__(
+        self,
+        global_model: Any,
+        local_model: Any,
+        global_generation_config: dict[str, Any] | None = None,
+        local_generation_config: dict[str, Any] | None = None,
+        static_scene: bool = False,
+    ):
+        self.global_policy = StreamingModelPolicy(
+            global_model,
+            global_generation_config=global_generation_config,
+            static_scene=static_scene,
+        )
+        self.local_policy = StreamingModelPolicy(
+            local_model,
+            local_generation_config=local_generation_config,
+            static_scene=static_scene,
+        )
+
+    def reset_usage(self) -> None:
+        self.global_policy.reset_usage()
+        self.local_policy.reset_usage()
+
+    def usage_summary(self) -> dict[str, float | int]:
+        global_usage = self.global_policy.usage_summary()
+        local_usage = self.local_policy.usage_summary()
+        return {
+            key: global_usage[key] + local_usage[key]
+            for key in global_usage
+        }
+
+    def generate_global(
+        self, instruction: str, scene_graph: dict[str, Any], completed: list[str]
+    ) -> str:
+        return self.global_policy.generate_global(instruction, scene_graph, completed)
+
+    def generate_local(
+        self,
+        instruction: str,
+        scene_graph: dict[str, Any],
+        completed: list[str],
+        pending: list[str],
+    ) -> str:
+        return self.local_policy.generate_local(
+            instruction, scene_graph, completed, pending
         )
 
 

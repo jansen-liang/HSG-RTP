@@ -35,6 +35,7 @@ class HierarchicalSceneGraphEncoder(nn.Module):
         llm_hidden_dim: int = 4096,
         qwen_model_name: str = "Qwen/Qwen3-8B",
         graph_hidden_dim: int = 256,
+        use_room_gnn: bool = True,
     ):
         super().__init__()
         self.llm_dim = llm_hidden_dim
@@ -48,6 +49,7 @@ class HierarchicalSceneGraphEncoder(nn.Module):
         config = AutoConfig.from_pretrained(qwen_model_name, trust_remote_code=True)
         self.qwen_hidden_size = config.hidden_size
         self.graph_hidden_dim = graph_hidden_dim
+        self.use_room_gnn = use_room_gnn
 
         # 将在主模型中设置，用于共享Qwen的embedding层
         self.embed_tokens = None
@@ -448,10 +450,15 @@ class HierarchicalSceneGraphEncoder(nn.Module):
                         edges.append([src_idx, tgt_idx])
                         edges.append([tgt_idx, src_idx])
 
-            edge_index = torch.tensor(edges, dtype=torch.long, device=device).t()
-            room_emb_gnn = self.room_gnn(room_inputs.to(dtype), edge_index)
-            room_emb_post = self.room_post_gnn(room_emb_gnn)
-            room_emb_final = room_emb_post + self.room_residual_proj(room_inputs)
+            if self.use_room_gnn:
+                edge_index = torch.tensor(
+                    edges, dtype=torch.long, device=device
+                ).reshape(-1, 2).t()
+                room_emb_gnn = self.room_gnn(room_inputs.to(dtype), edge_index)
+                room_emb_post = self.room_post_gnn(room_emb_gnn)
+                room_emb_final = room_emb_post + self.room_residual_proj(room_inputs)
+            else:
+                room_emb_final = self.room_residual_proj(room_inputs)
 
             for i, room_id in enumerate(room_id_list):
                 node_emb_dict[("room", room_id)] = room_emb_final[i:i+1]

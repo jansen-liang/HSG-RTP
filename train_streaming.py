@@ -8,7 +8,7 @@ import os
 import argparse
 import json
 from tqdm import tqdm
-from peft import LoraConfig, get_peft_model, TaskType
+from peft import LoraConfig, PeftModel, get_peft_model, TaskType
 from utils.dataloader_streaming import StreamingSceneGraphDataLoader
 from utils.streaming_hlr import StreamingSceneInstructionQwenModel
 from eval_streaming import stream_validate
@@ -29,6 +29,61 @@ def print_trainable_parameters(model, rank=0):
 
     print(f"Trainable params: {trainable_params:,} || All params: {all_param:,} || Trainable%: {100 * trainable_params / all_param:.2f}%")
 
+
+def freeze_module(module):
+    if module is None:
+        return
+    for parameter in module.parameters():
+        parameter.requires_grad = False
+
+
+def freeze_disabled_components(
+    model,
+    use_hsge,
+    use_local_graph,
+    use_global_topology,
+):
+    if not use_hsge:
+        for component_name in ("graph_encoder", "graph_proj"):
+            freeze_module(getattr(model, component_name, None))
+        return
+
+    graph_encoder = getattr(model, "graph_encoder", None)
+    if graph_encoder is None:
+        return
+    if not use_global_topology:
+        freeze_module(getattr(graph_encoder, "room_gnn", None))
+        freeze_module(getattr(graph_encoder, "room_post_gnn", None))
+    if not use_local_graph:
+        for component_name in ("item_proj", "item_attn_gate"):
+            freeze_module(getattr(graph_encoder, component_name, None))
+
+
+def configure_ablation(ablation, rank):
+    use_hsge = True
+    use_local_graph = True
+    use_context = True
+    use_global_topology = True
+
+    if ablation == "no_hsge":
+        message = "HSG-RTP (w/o HSGE) - Pure Text"
+        use_hsge = False
+        use_local_graph = False
+    elif ablation in ("no_hsge_local", "no_object_tokens"):
+        message = "HSG-RTP (w/o independent-object tokens)"
+        use_local_graph = False
+    elif ablation == "no_global_topology":
+        message = "HSG-RTP (w/o global topology GNN)"
+        use_global_topology = False
+    elif ablation in ("no_context", "no_graph_updates_history"):
+        message = "HSG-RTP (w/o graph updates/history context)"
+        use_context = False
+    else:
+        message = "Full HSG-RTP"
+
+    if rank == 0:
+        print(f">>> Ablation Mode: {message}")
+    return use_hsge, use_local_graph, use_context, use_global_topology
 
 
 def train_epoch(
@@ -116,7 +171,9 @@ def train_epoch(
                         "learning_rate": current_lr
                     }, step=model_engine.global_steps)
             
-            if batch_idx % 1 == 0:
+            # Avoid forcing a CUDA allocator flush after every micro-batch.
+            # Periodic cleanup keeps memory bounded without stalling training.
+            if batch_idx % 50 == 0:
                 torch.cuda.empty_cache()
 
         except Exception as e:
@@ -145,8 +202,21 @@ def train():
     parser.add_argument('--max_train_batches', type=int, default=None)
     parser.add_argument('--max_val_samples', type=int, default=30)
     parser.add_argument('--log_batch_metadata', action='store_true')
+    parser.add_argument(
+        '--freeze_non_lora',
+        action='store_true',
+        help='Freeze graph encoders, projections, embeddings, and all non-LoRA parameters.',
+    )
     parser.add_argument('--ablation', type=str, default="none", 
-                        choices=["none", "no_hsge", "no_hsge_local", "no_context"],
+                        choices=[
+                            "none",
+                            "no_hsge",
+                            "no_hsge_local",
+                            "no_object_tokens",
+                            "no_global_topology",
+                            "no_context",
+                            "no_graph_updates_history",
+                        ],
                         help="Ablation setting: 'none' (Full HSG-RTP), 'no_hsge' (Pure Text), 'no_hsge_local' (No Local Graph), 'no_context' (No History/Prompt)")
   
     args = parser.parse_args()
@@ -162,31 +232,17 @@ def train():
         local_rank = int(os.environ.get('LOCAL_RANK', 0))
     start_epoch = 0
 
-    # Ablation settings
-    use_hsge = True
-    use_local_graph = True
-    use_context = True
-    
-    if args.ablation == "no_hsge":
-        if rank == 0: print(">>> Ablation Mode: HSG-RTP (w/o HSGE) - Pure Text")
-        use_hsge = False
-        use_local_graph = False
-    elif args.ablation == "no_hsge_local":
-        if rank == 0: print(">>> Ablation Mode: HSG-RTP (w/o HSGE-local) - Global Graph Only")
-        use_hsge = True
-        use_local_graph = False
-    elif args.ablation == "no_context":
-        if rank == 0: print(">>> Ablation Mode: HSG-RTP (w/o context) - No History/Prompt")
-        use_context = False
-    else:
-        if rank == 0: print(">>> Ablation Mode: Full HSG-RTP")
+    use_hsge, use_local_graph, use_context, use_global_topology = (
+        configure_ablation(args.ablation, rank)
+    )
 
     # 使用支持流式输出的模型（现在使用Qwen文本编码器）
     model = StreamingSceneInstructionQwenModel(
         llm_model_name=args.model_path,
         use_hsge=use_hsge,
         use_local_graph=use_local_graph,
-        use_context=use_context
+        use_context=use_context,
+        use_global_topology=use_global_topology,
     )
     
     with open(args.deepspeed_config, 'r') as f:
@@ -209,6 +265,12 @@ def train():
         train_state_path = os.path.join(resume_path, 'training_state.pt')
         if os.path.exists(train_state_path):
             train_state = torch.load(train_state_path, map_location='cpu')
+            checkpoint_ablation = train_state.get('ablation')
+            if checkpoint_ablation and checkpoint_ablation != args.ablation:
+                raise ValueError(
+                    "Checkpoint ablation mismatch: "
+                    f"checkpoint={checkpoint_ablation}, requested={args.ablation}"
+                )
             start_epoch = train_state['epoch']
             
             # Load additional components if they exist
@@ -251,16 +313,11 @@ def train():
             if rank == 0:
                 print("training_state.pt not found, starting from epoch 0")
         
-        lora_config = LoraConfig(
-            task_type=TaskType.CAUSAL_LM,
-            r=args.lora_r,
-            lora_alpha=args.lora_alpha,
-            lora_dropout=args.lora_dropout,
-            target_modules=['q_proj', 'k_proj', 'v_proj', 'o_proj'],
-            bias="none"
+        model.llm = PeftModel.from_pretrained(
+            model.llm,
+            resume_path,
+            is_trainable=True,
         )
-        model.llm = get_peft_model(model.llm, lora_config)
-        model.llm.load_adapter(resume_path, adapter_name="default")
 
         if rank == 0:
             print("LoRA weights loaded")
@@ -277,6 +334,17 @@ def train():
             model.llm = get_peft_model(model.llm, lora_config)
 
     model.llm.config.use_cache = False
+    freeze_disabled_components(
+        model,
+        use_hsge,
+        use_local_graph,
+        use_global_topology,
+    )
+    if args.freeze_non_lora:
+        for name, parameter in model.named_parameters():
+            parameter.requires_grad = 'lora_' in name
+        if rank == 0:
+            print("Non-LoRA parameters frozen")
     model.llm.gradient_checkpointing_enable(
         gradient_checkpointing_kwargs={"use_reentrant": False}
     )
@@ -432,7 +500,10 @@ def train():
                 'rng_state': torch.get_rng_state(),
                 'cuda_rng_state': torch.cuda.get_rng_state() if torch.cuda.is_available() else None,
                 'additional_components': additional_state,
-                'model_type': 'streaming_qwen'
+                'model_type': 'streaming_qwen',
+                'ablation': args.ablation,
+                'training_args': vars(args),
+                'world_size': world_size,
             }
             torch.save(training_state, os.path.join(save_path, 'training_state.pt'))
             print(f"Streaming checkpoint (Qwen text encoder) saved to {save_path}")

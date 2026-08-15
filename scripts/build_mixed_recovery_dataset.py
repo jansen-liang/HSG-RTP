@@ -92,6 +92,7 @@ def augment_task(
                 valid_rooms,
                 previous_error=error,
                 retry_count=1,
+                task_info=task.get("task_info", {}),
             )
             additions.append(repair_sample)
             stats["global_repair"] += 1

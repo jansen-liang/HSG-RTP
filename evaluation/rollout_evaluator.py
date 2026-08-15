@@ -1,5 +1,9 @@
+from __future__ import annotations
+
 from copy import deepcopy
+from collections import deque
 from dataclasses import dataclass
+from difflib import SequenceMatcher
 import re
 from typing import Any, Protocol
 
@@ -152,8 +156,389 @@ def validate_runtime_plan(
     return PlanEvaluation(not errors, tuple(errors), tuple(parsed_steps))
 
 
+def ground_local_action(
+    action: str,
+    state: dict[str, Any],
+    pending: list[str] | None = None,
+    repair_stalled_action: bool = True,
+) -> tuple[str, dict[str, str] | None]:
+    """Apply conservative, uniquely determined navigation grounding."""
+    parsed = parse_local_action(action)
+    original_action = action
+    current_room = state.get("agent", {}).get("position")
+    rooms = state.get("rooms", {})
+    if current_room not in rooms or not parsed.arguments:
+        return action, None
+    room = rooms[current_room]
+    inventory = state.get("agent", {}).get("inventory", {})
+    local_items = room.get("items", {})
+    if not isinstance(local_items, dict):
+        local_items = {item: {} for item in local_items} if isinstance(local_items, list) else {}
+
+    candidate_sets = {
+        "goto": sorted(rooms),
+        "scan": sorted(
+            {current_room, "floor"}
+            | set(room.get("small_objects", {}))
+            | set(room.get("large_objects", {}))
+            | set(local_items)
+            | set(rooms)
+        ),
+        "pick": sorted(room.get("small_objects", {})),
+        "press": sorted(room.get("small_objects", {})),
+        "wait": ["elevator_down_clear", "elevator_up_clear"],
+    }
+    arguments = list(parsed.arguments)
+    alias_changes = []
+    if parsed.name == "place":
+        candidate_arguments = [sorted(inventory), sorted(set(room.get("large_objects", {})) | {"floor"})]
+    else:
+        candidate_arguments = [candidate_sets.get(parsed.name, [])]
+    for argument_index, candidates in enumerate(candidate_arguments):
+        if argument_index >= len(arguments) or arguments[argument_index] in candidates:
+            continue
+        matched = _unique_entity_match(arguments[argument_index], candidates)
+        if matched is None:
+            continue
+        alias_changes.append((arguments[argument_index], matched))
+        arguments[argument_index] = matched
+    alias_grounding = None
+    if alias_changes:
+        action = f"{parsed.name}({', '.join(arguments)})"
+        parsed = parse_local_action(action)
+        alias_grounding = {
+            "operation": "normalize_entity_alias",
+            "from": original_action,
+            "to": action,
+        }
+    target = parsed.arguments[0]
+    neighbors = list(rooms[current_room].get("neighbor", []))
+    pending_step = None
+    if pending:
+        try:
+            pending_step = parse_global_step(pending[0])
+        except ParseError:
+            pass
+
+    if (
+        pending_step is not None
+        and parsed.name == "scan"
+        and target == "elevator_cabin"
+        and current_room == "elevator_cabin"
+    ):
+        if pending_step.action == "trans":
+            destination_floor = pending_step.arguments[1]
+            destination_room = transition_destination(rooms, destination_floor)
+            floor_number = destination_floor.removesuffix("f")
+            pressed_buttons = state.get("agent", {}).get("pressed_buttons", [])
+            destination_button = f"elevator_button_{floor_number}"
+            if (
+                destination_button not in pressed_buttons
+                and destination_button in room.get("small_objects", {})
+            ):
+                grounded = f"press({destination_button})"
+                return grounded, {
+                    "operation": "select_pending_transition_floor",
+                    "from": action,
+                    "to": grounded,
+                }
+            if (
+                destination_room in neighbors
+                and destination_button in pressed_buttons
+            ):
+                grounded = f"goto({destination_room})"
+                return grounded, {
+                    "operation": "advance_pending_transition",
+                    "from": action,
+                    "to": grounded,
+                }
+
+    scan_history = state.get("agent", {}).get("scan_history", [])
+    if (
+        repair_stalled_action
+        and pending_step is not None
+        and parsed.name == "scan"
+        and target == current_room
+        and current_room in scan_history
+    ):
+        if pending_step.action != "trans" and current_room != pending_step.room:
+            action = f"goto({pending_step.room})"
+            parsed = parse_local_action(action)
+            target = pending_step.room
+            alias_grounding = {
+                "operation": "advance_pending_route",
+                "from": original_action,
+                "to": action,
+            }
+        elif pending_step.action in {"pick", "organize"} and current_room == pending_step.room:
+            object_id = next(
+                (
+                    candidate
+                    for candidate in pending_step.arguments
+                    if candidate not in inventory
+                    and candidate in room.get("small_objects", {})
+                ),
+                None,
+            )
+            if object_id is not None:
+                object_data = room.get("small_objects", {}).get(object_id, {})
+                relation = object_data.get("relation", {}) if isinstance(object_data, dict) else {}
+                support = relation.get("on") or relation.get("in")
+                if support and support not in scan_history:
+                    grounded = f"scan({support})"
+                elif object_id not in scan_history:
+                    grounded = f"scan({object_id})"
+                else:
+                    grounded = f"pick({object_id})"
+                return grounded, {
+                    "operation": "advance_pending_object_interaction",
+                    "from": original_action,
+                    "to": grounded,
+                }
+            held_object = next(
+                (candidate for candidate in pending_step.arguments if candidate in inventory),
+                None,
+            )
+            if pending_step.action == "organize" and held_object is not None:
+                grounded = f"place({held_object}, floor)"
+                return grounded, {
+                    "operation": "complete_pending_organize",
+                    "from": original_action,
+                    "to": grounded,
+                }
+        elif pending_step.action == "place" and current_room == pending_step.room:
+            held_object = next(
+                (candidate for candidate in pending_step.arguments if candidate in inventory),
+                None,
+            )
+            if held_object is not None:
+                grounded = f"place({held_object}, floor)"
+                return grounded, {
+                    "operation": "complete_pending_place",
+                    "from": original_action,
+                    "to": grounded,
+                }
+
+    navigation_request = parsed.name == "goto" or (
+        parsed.name == "scan" and target in rooms and target != current_room
+    )
+    if not navigation_request or target not in rooms:
+        return action, alias_grounding
+
+    if target in neighbors:
+        grounded = f"goto({target})"
+        if grounded == action:
+            return action, alias_grounding
+        return grounded, {
+            "operation": "room_scan_to_goto",
+            "from": action,
+            "to": grounded,
+        }
+
+    queue = deque([current_room])
+    previous = {current_room: None}
+    while queue:
+        room_id = queue.popleft()
+        if room_id == target:
+            break
+        for neighbor in rooms[room_id].get("neighbor", []):
+            if neighbor not in rooms or neighbor in previous:
+                continue
+            if room_id.startswith("elevator_") and neighbor.startswith("elevator_"):
+                continue
+            previous[neighbor] = room_id
+            queue.append(neighbor)
+    if target not in previous:
+        return action, None
+
+    next_room = target
+    while previous[next_room] != current_room:
+        parent = previous[next_room]
+        if parent is None:
+            return action, None
+        next_room = parent
+    grounded = f"goto({next_room})"
+    return grounded, {
+        "operation": (
+            "room_scan_to_route" if parsed.name == "scan" else "route_next_hop"
+        ),
+        "from": action,
+        "to": grounded,
+    }
+
+
 def _normalize_room_id(room_id: str) -> str:
     return "_".join(part for part in room_id.lower().replace("-", "_").split("_") if part)
+
+
+def _normalize_entity_id(entity_id: str) -> str:
+    substitutions = {
+        "china": "chinese",
+        "takeaway": "takeout",
+    }
+    ignored = {"box", "can", "item", "object", "package"}
+    parts = [
+        substitutions.get(part, part)
+        for part in _normalize_room_id(entity_id).split("_")
+        if part not in ignored
+    ]
+    return "_".join(parts)
+
+
+def _unique_entity_match(entity_id: str, candidates: list[str]) -> str | None:
+    if not candidates:
+        return None
+    normalized = _normalize_entity_id(entity_id)
+    exact = [candidate for candidate in candidates if _normalize_entity_id(candidate) == normalized]
+    if len(exact) == 1:
+        return exact[0]
+    scored = sorted(
+        (
+            SequenceMatcher(None, normalized, _normalize_entity_id(candidate)).ratio(),
+            candidate,
+        )
+        for candidate in candidates
+    )
+    if not scored or scored[-1][0] < 0.72:
+        return None
+    if len(scored) > 1 and scored[-1][0] - scored[-2][0] < 0.08:
+        return None
+    return scored[-1][1]
+
+
+def _format_global_step(room: str, action: str, arguments: tuple[str, ...]) -> str:
+    if action == "trans":
+        return f"goto({room}): trans from({arguments[0]}) to({arguments[1]})"
+    return f"goto({room}): {action}({', '.join(arguments)})"
+
+
+def _normalize_global_syntax(raw_step: str) -> str:
+    match = re.fullmatch(
+        r"goto\(([^()]+)\)\s*:\s*(pick|place|organize)\s+(.+)",
+        raw_step.strip(),
+    )
+    if not match:
+        return raw_step
+    arguments = ", ".join(
+        argument.strip() for argument in match.group(3).split(",") if argument.strip()
+    )
+    return f"goto({match.group(1).strip()}): {match.group(2)}({arguments})"
+
+
+def _object_room(state: dict[str, Any], object_id: str) -> str | None:
+    located = find_object(state, object_id)
+    return located[0] if located is not None and located[0] != "agent_inventory" else None
+
+
+def _semantic_anchors(
+    parsed_steps: list[Any], state: dict[str, Any], record: dict[str, Any]
+) -> list[tuple[str, str, tuple[str, ...]]]:
+    task_info = record.get("task_info", {})
+    task_type = task_info.get("type")
+    parameters = task_info.get("parameters", {})
+    objects = list(parameters.get("objects", []))
+
+    if task_type == "guidance":
+        if not any(step is not None for step in parsed_steps):
+            return []
+        required = list(parameters.get("intermediate_points", []))
+        end_room = parameters.get("end_room")
+        if end_room:
+            required.append(end_room)
+        return [(room_id, "pass", ()) for room_id in required]
+
+    recognized_objects = set()
+    for step in parsed_steps:
+        if step is None:
+            continue
+        for argument in step.arguments:
+            matched = argument if argument in objects else _unique_entity_match(argument, objects)
+            if matched is not None:
+                recognized_objects.add(matched)
+    if not recognized_objects:
+        return []
+
+    if task_type == "delivery":
+        source_room = parameters.get("source_room")
+        target_rooms = list(parameters.get("target_rooms", []))
+        if not source_room or not target_rooms:
+            return []
+        repaired = []
+        for object_index, object_id in enumerate(objects):
+            repaired.append((source_room, "pick", (object_id,)))
+            repaired.append(
+                (target_rooms[object_index % len(target_rooms)], "place", (object_id,))
+            )
+        return repaired
+    if task_type == "tidying":
+        repaired = []
+        for object_id in objects:
+            room_id = _object_room(state, object_id)
+            if room_id is not None:
+                repaired.append((room_id, "organize", (object_id,)))
+        return repaired
+    return []
+
+
+def _shortest_room_path(rooms: dict[str, Any], start: str, goal: str) -> list[str]:
+    if start == goal:
+        return [start]
+    queue = deque([start])
+    previous = {start: None}
+    while queue:
+        room_id = queue.popleft()
+        for neighbor in rooms.get(room_id, {}).get("neighbor", []):
+            if neighbor not in rooms or neighbor in previous:
+                continue
+            if neighbor == "elevator_cabin":
+                continue
+            previous[neighbor] = room_id
+            if neighbor == goal:
+                queue.clear()
+                break
+            queue.append(neighbor)
+    if goal not in previous:
+        return []
+    path = []
+    cursor = goal
+    while cursor is not None:
+        path.append(cursor)
+        cursor = previous[cursor]
+    return list(reversed(path))
+
+
+def _route_global_anchors(
+    anchors: list[tuple[str, str, tuple[str, ...]]], state: dict[str, Any]
+) -> list[str]:
+    rooms = state.get("rooms", {})
+    current_room = state.get("agent", {}).get("position", "")
+    routed = []
+    for target_room, action, arguments in anchors:
+        if target_room not in rooms or current_room not in rooms:
+            routed.append(_format_global_step(target_room, action, arguments))
+            current_room = target_room
+            continue
+        path = _shortest_room_path(rooms, current_room, target_room)
+        if not path:
+            routed.append(_format_global_step(target_room, action, arguments))
+            current_room = target_room
+            continue
+        for source, destination in zip(path, path[1:]):
+            source_floor = re.fullmatch(r"elevator_(\d+f)", source)
+            destination_floor = re.fullmatch(r"elevator_(\d+f)", destination)
+            if source_floor and destination_floor:
+                routed.append(
+                    _format_global_step(
+                        source,
+                        "trans",
+                        (source_floor.group(1), destination_floor.group(1)),
+                    )
+                )
+            elif destination != target_room:
+                routed.append(_format_global_step(destination, "pass", ()))
+        routed.append(_format_global_step(target_room, action, arguments))
+        current_room = target_room
+    return routed
 
 
 def _room_distances(rooms: dict[str, Any], start_room: str) -> dict[str, int]:
@@ -185,8 +570,48 @@ def _task_room_ids(record: dict[str, Any], valid_rooms: set[str]) -> list[str]:
     return candidates
 
 
+def _predicted_task_anchors(
+    record: dict[str, Any], steps: list[Any]
+) -> list[tuple[str, str, tuple[str, ...]]]:
+    task_info = record.get("task_info", {})
+    task_type = task_info.get("type")
+    if task_type == "guidance":
+        return [
+            (step.room, "pass", ())
+            for step in steps
+            if step.action != "trans"
+        ]
+    return [
+        (step.room, step.action, tuple(step.arguments))
+        for step in steps
+        if step.action in {"pick", "place", "organize"}
+    ]
+
+
+def _sequence_edit_distance(left: list[Any], right: list[Any]) -> int:
+    previous = list(range(len(right) + 1))
+    for left_item in left:
+        current = [previous[0] + 1]
+        for index, right_item in enumerate(right, start=1):
+            current.append(
+                min(
+                    current[-1] + 1,
+                    previous[index] + 1,
+                    previous[index - 1] + int(left_item != right_item),
+                )
+            )
+        previous = current
+    return previous[-1]
+
+
 def ground_global_plan(
-    plan: list[str], state: dict[str, Any], record: dict[str, Any] | None = None
+    plan: list[str],
+    state: dict[str, Any],
+    record: dict[str, Any] | None = None,
+    normalize_rooms: bool = True,
+    repair_task_plan: bool = True,
+    complete_task_coverage: bool = True,
+    task_semantic_repair_budget: int | None = None,
 ) -> tuple[list[str], list[dict[str, str]]]:
     """Conservatively ground room names before strict plan validation."""
     valid_rooms = sorted(state.get("rooms", {}))
@@ -197,7 +622,16 @@ def ground_global_plan(
     changes = []
     task_type = record.get("task_info", {}).get("type") if record else None
 
-    for raw_step in plan:
+    for original_step in plan:
+        raw_step = _normalize_global_syntax(original_step)
+        if raw_step != original_step:
+            changes.append(
+                {
+                    "operation": "normalize_global_syntax",
+                    "from": original_step,
+                    "to": raw_step,
+                }
+            )
         bare_goto_match = re.fullmatch(r"goto\(([^()]+)\)", raw_step.strip())
         if bare_goto_match:
             room_id = bare_goto_match.group(1).strip()
@@ -238,6 +672,10 @@ def ground_global_plan(
             grounded_plan.append(raw_step)
             continue
 
+        if not normalize_rooms:
+            grounded_plan.append(raw_step)
+            continue
+
         normalized_target = _normalize_room_id(parsed_step.room)
         candidates = [
             room_id
@@ -270,8 +708,46 @@ def ground_global_plan(
         else:
             grounded_plan.append(raw_step)
 
-    if not changes or record is None:
+    if record is None or not repair_task_plan:
         return grounded_plan, changes
+
+    if not complete_task_coverage or task_semantic_repair_budget is not None:
+        predicted_anchors = []
+        predicted_steps = []
+        for raw_step in grounded_plan:
+            try:
+                parsed_step = parse_global_step(raw_step)
+            except ParseError:
+                return grounded_plan, changes
+            predicted_steps.append(parsed_step)
+            predicted_anchors.append(
+                (parsed_step.room, parsed_step.action, tuple(parsed_step.arguments))
+            )
+        routed_plan = _route_global_anchors(predicted_anchors, state)
+        if routed_plan != grounded_plan:
+            changes.append(
+                {
+                    "operation": "complete_predicted_route",
+                    "from": " | ".join(grounded_plan),
+                    "to": " | ".join(routed_plan),
+                }
+            )
+        if not complete_task_coverage:
+            return routed_plan, changes
+
+        expected_anchors = _semantic_anchors(predicted_steps, state, record)
+        semantic_distance = _sequence_edit_distance(
+            _predicted_task_anchors(record, predicted_steps), expected_anchors
+        )
+        if not expected_anchors or semantic_distance > task_semantic_repair_budget:
+            return routed_plan, changes
+        changes.append(
+            {
+                "operation": "bounded_task_semantic_repair",
+                "from": str(semantic_distance),
+                "to": str(task_semantic_repair_budget),
+            }
+        )
 
     rooms = state.get("rooms", {})
     current_room = state.get("agent", {}).get("position", "")
@@ -333,7 +809,25 @@ def ground_global_plan(
                 }
             )
 
-    return pruned_plan, changes
+    reparsed = []
+    for raw_step in pruned_plan:
+        try:
+            reparsed.append(parse_global_step(raw_step))
+        except ParseError:
+            reparsed.append(None)
+    anchors = _semantic_anchors(reparsed, state, record)
+    if not anchors:
+        return pruned_plan, changes
+    routed_plan = _route_global_anchors(anchors, state)
+    if routed_plan != pruned_plan:
+        changes.append(
+            {
+                "operation": "repair_task_route_and_coverage",
+                "from": " | ".join(pruned_plan),
+                "to": " | ".join(routed_plan),
+            }
+        )
+    return routed_plan, changes
 
 
 def rollout_policy(
@@ -364,6 +858,7 @@ def rollout_policy(
             valid_rooms,
             previous_error=previous_global_error,
             retry_count=attempt_index,
+            task_info=record.get("task_info", {}),
         )
         recovery_trace.append(
             {
@@ -391,12 +886,18 @@ def rollout_policy(
             continue
 
         grounded_plan, grounding_changes = ground_global_plan(
-            plan, initial_scene, record
+            plan,
+            initial_scene,
+            record,
+            normalize_rooms=config.normalize_global_rooms,
+            repair_task_plan=config.repair_global_task_plan,
+            complete_task_coverage=config.complete_global_task_coverage,
+            task_semantic_repair_budget=config.task_semantic_repair_budget,
         )
         grounded_evaluation = evaluate_global_plan(
             record, grounded_plan, initial_scene
         )
-        if grounding_changes and grounded_evaluation.success:
+        if grounding_changes:
             plan = grounded_plan
             plan_evaluation = grounded_evaluation
             recovery_trace.append(
@@ -519,6 +1020,20 @@ def rollout_policy(
                 action = parse_local_action(
                     parse_prediction(local_prediction, "local")[0]
                 ).canonical
+                action, grounding = ground_local_action(
+                    action,
+                    manager.current_state,
+                    pending,
+                    repair_stalled_action=config.repair_stalled_local_action,
+                )
+                if grounding is not None:
+                    recovery_trace.append(
+                        {
+                            "event": "local_action_grounded",
+                            "step_index": step_index,
+                            **grounding,
+                        }
+                    )
                 if action in forbidden_actions:
                     raise ValueError(
                         f"Action {action!r} repeated without a state change after failure"

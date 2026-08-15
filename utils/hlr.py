@@ -17,7 +17,8 @@ class SceneInstructionQwenModel(nn.Module):
         max_prefix_length: int = 512,
         use_hsge: bool = True,
         use_local_graph: bool = True,
-        use_context: bool = True
+        use_context: bool = True,
+        use_global_topology: bool = True,
     ):
         super().__init__()
         self.max_instruction_length = max_instruction_length
@@ -26,6 +27,7 @@ class SceneInstructionQwenModel(nn.Module):
         self.use_hsge = use_hsge
         self.use_local_graph = use_local_graph
         self.use_context = use_context
+        self.use_global_topology = use_global_topology
 
         # 1. 自动选择精度
         dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
@@ -67,7 +69,11 @@ class SceneInstructionQwenModel(nn.Module):
             self.llm.resize_token_embeddings(len(self.instruction_encoder.tokenizer))
         
         # Graph encoder
-        self.graph_encoder = HierarchicalSceneGraphEncoder(llm_hidden_dim=self.hidden_size, qwen_model_name=llm_model_name)
+        self.graph_encoder = HierarchicalSceneGraphEncoder(
+            llm_hidden_dim=self.hidden_size,
+            qwen_model_name=llm_model_name,
+            use_room_gnn=use_global_topology,
+        )
         self.graph_encoder.set_embed_tokens(self.llm.get_input_embeddings())
 
         # Projection
