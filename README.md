@@ -4,9 +4,11 @@
 
 [中文说明](README_zh-CN.md) · [License](LICENSE)
 
+![HSG-RTP overview](assets/hsg-rtp-overview.png)
+
 HSG-RTP is a research codebase for long-horizon robot task planning in multi-room and multi-floor environments. It represents the environment as a Hierarchical Scene Graph (HSG), encodes building-scale and room-scale views separately, and uses a shared Qwen3-8B planner to generate global subtasks and executable local actions. A transactional controller validates every action, commits only consistent state transitions, and invokes structured recovery after failures.
 
-> **Release status.** The repository provides the model, data-generation, training, strict evaluation, and closed-loop recovery code. Model weights, generated datasets, experiment outputs, and private credentials are not distributed in the repository. Quantitative results will be published after the evaluation is finalized.
+> **Release status.** The repository provides the model, data-generation, training, strict evaluation, closed-loop recovery, ablation, and external-baseline adaptation code. Model weights, generated datasets, experiment outputs, and private credentials are not distributed in the repository. Audited quantitative results are reported below.
 
 ## Overview
 
@@ -26,7 +28,7 @@ Instruction + Current HSG
 
 HSG-RTP contains four main components:
 
-- **View-specific HSG encoding:** GATv2-based room-topology encoding for global planning and object-preserving local encoding for action grounding.
+- **View-specific HSG encoding:** GATv2-based room-topology encoding for global planning and object-preserving local encoding for action selection.
 - **Shared global/local planner:** one frozen Qwen3-8B backbone with trainable LoRA adapters and HSG encoder parameters.
 - **Transactional execution:** strict precondition checks and graph updates for `goto`, `scan`, `pick`, `place`, `press`, and `wait`.
 - **Closed-loop recovery:** initial-plan repair, one-shot automatic retry for temporary skill failures, local corrective retries, and replacement of the unfinished global plan.
@@ -146,7 +148,7 @@ Reference configuration:
 | Epochs | 3 |
 | Precision | FP16 |
 | Distributed training | DeepSpeed ZeRO-2, 2 GPUs |
-| Node / prefix / output limits | 128 / 512 / 96 tokens |
+| Node / prefix / output limits | 128 / 512 / 448 tokens |
 
 Hardware, paths, and batch settings can be overridden without changing the model definition.
 
@@ -182,9 +184,35 @@ python evaluate_tasks.py \
 
 The evaluator reports:
 
-- **Plan SR:** valid global-plan syntax, grounded rooms, reachable topology, correct ordering, and task coverage.
+- **Plan SR:** valid global-plan syntax, legal room references, reachable topology, correct ordering, and task coverage.
 - **Strict Exec SR:** every local action passes its preconditions, every committed state remains valid, and the final symbolic goal is reached.
 - **Invalid benchmark tasks:** reference sequences that cannot reach their declared goal are reported separately rather than silently counted as model failures.
+
+## Experimental Results
+
+Results use the corrected held-out benchmark: 70 submitted tasks, of which 66 are supported by the simulator. All rows below use the same bounded controller. The independently trained No-HSG model receives no graph tokens.
+
+| Method | Plan SR (%) | Strict Exec SR (%) | Global Jaccard | Global LCS | Local Jaccard | Local LCS |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Qwen3-8B, zero-shot | 92.42 | 56.06 | 0.624 | 0.733 | 0.128 | 0.117 |
+| **HSG-RTP** | **93.94** | **80.30** | **0.634** | **0.739** | **0.354** | **0.312** |
+| No-HSG | 86.36 | 77.27 | 0.580 | 0.689 | 0.315 | 0.284 |
+| HSG-RTP without global topology | 90.91 | 81.82 | 0.581 | 0.683 | 0.339 | 0.302 |
+| HSG-RTP without object tokens | 92.42 | 84.85 | 0.613 | 0.711 | 0.342 | 0.305 |
+| HSG-RTP without graph updates/history | 89.39 | 40.91 | 0.614 | 0.714 | 0.101 | 0.091 |
+
+At the individual planning-step level, HSG-RTP obtains 0.7785 Jaccard, 0.7922 LCS ratio, 98.87% global/local mode accuracy, and 0.0722 sample-weighted loss over 1,616 held-out samples.
+
+External methods are reported separately because their native interfaces, controllers, and output protocols are not directly comparable to the table above or to one another.
+
+| Method | Adaptation | Plan SR (%) | Exec SR (%) |
+| --- | --- | ---: | ---: |
+| SayPlan | Paper reimplementation with Qwen3-8B | 19.70 | 10.61 |
+| SayCan | Official-notebook adaptation with symbolic affordances | N/A | 42.42 |
+| GRID | Local author code with retrained RN50 | N/A | 1.52 |
+| DELTA | Partial upstream adaptation with a fixed problem builder | 18.18 | 15.15 |
+
+The exact protocols and adaptation boundaries are documented in [docs/baseline_protocol.md](docs/baseline_protocol.md). Result summaries can be checked with `python scripts/audit_paper_results.py` when the excluded evaluation artifacts are available locally.
 
 ## Closed-Loop Recovery Evaluation
 
